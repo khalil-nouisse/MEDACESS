@@ -6,9 +6,9 @@ const UserSchema = new mongoose.Schema({
     cin: { type: String, required: true, unique: true },
     sexe: { type: Boolean, required: true},
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
     tel: { type: String, required: true },
-    doti: { type: String }
+    doti: { type: String },
     address: { type: String},
     code_postal: {type: Number},
     family_statut: {type: String},
