@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
+const TreatmentSchema = new mongoose.Schema({
     first_name: { type: String, required: true },
     last_name: { type: String, required: true},
     cin: { type: String, required: true, unique: true },
@@ -14,7 +14,6 @@ const UserSchema = new mongoose.Schema({
     family_statut: {type: String},
     role: {type: Number, required: true},
     profil_img: {type: String, default: png},
-    
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Treatment', TreatmentSchema);
