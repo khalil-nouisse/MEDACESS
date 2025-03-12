@@ -1,13 +1,14 @@
 const express = require('express');
 const session = require('express-session');
 const { connectDB } = require('./config/db');
-const authRoutes = require('./api/routes/authRoutes');
+const authRoutes  = require('./api/routes/authRoutes');
+const userRoutes  = require('./api/routes/userRoutes');
 const MongoStore = require('connect-mongo');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const DOMAINE = process.env.HOSTNAME || "localhost";
+const DOMAINE = process.env.SERVER || "localhost";
 
 if (!process.env.MONGODB_URI) {
     console.error("❌ MONGO_URI is not defined in the .env file");
@@ -33,6 +34,7 @@ app.use(session({
 
 // Routes
 app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
 
 // EJS Setup
 app.set('view engine', 'ejs');
@@ -49,13 +51,21 @@ app.get('/login', (req, res) => {
 app.get('/dash', (req, res) => {
     if (!req.session.user) {
         return res.redirect('/login');
-    }
-
-    //let fiveTreatments = treatmentsDisplay()
-    
+    }    
     res.render('dash', { user: req.session.user });
 });
 
+app.get('/update', (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+
+    res.render('update', { user: req.session.user || null });
+});
+
+app.get('/login', (req, res) => {
+    res.render('login', { user: req.session.user || null });
+});
 // Global Error Handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
