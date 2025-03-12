@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
     code_postal: {type: Number},
     family_statut: {type: String},
     role: {type: Number, required: true},
-    profil_img: {type: String, default: png},
+    profil_img: {type: String, default: "png"},
     
 });
 
