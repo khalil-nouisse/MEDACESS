@@ -16,8 +16,8 @@ body {
 
 .container{
     position: relative;
-    width: 850px;
-    height: 900px;
+    width: 900px;
+    height: 800px;
     background: #fff;
     border-radius: 30px;
     box-shadow: 0 0 30px rgba(221, 20, 20, 0.068);
@@ -66,16 +66,17 @@ form{
 }
 .form-group{
     position: relative;
-    margin: 17px 0 ;
+    margin: 10px 0 ;
 }
 .form-group input {
     width: 100%;
-    padding: 13px;
-     border-radius: 4px;
-     outline:  none;
-     font-size: 15px;
-     font-weight:500 ;
-     border: 0.2px solid black;
+    padding: 10px;
+    border-radius: 4px;
+    outline:  none;
+    font-size: 15px;
+    font-weight:500 ;
+    border: 0.2px solid black;
+    text-align: left;
      
 }
 .form-group input::placeholder{
@@ -159,7 +160,7 @@ button:active {
         justify-content: center;
         align-items: center;
         z-index: 2;
-        transition: left 0.6s ease-in-out, right 0.6s ease-in-out;  /* Adjust transition for both left and right */
+        transition: left 0.5s ease-in-out, right 0.5s ease-in-out;  /* Adjust transition for both left and right */
     }
 .toggle-pannel.toggle-left{
     left: 0;
@@ -167,7 +168,7 @@ button:active {
 }
 .container.active .toggle-pannel.toggle-left{
     left : -50%;
-    transition-delay: .6s;
+    transition-delay: .5s;
 }
 .container.active .toggle-pannel.toggle-right {
     right: 0;
@@ -176,7 +177,7 @@ button:active {
 
 .toggle-pannel.toggle-right {
     right: -50%;
-    transition-delay: 0.6s;
+    transition-delay: 0.5s;
 }
 
     
@@ -198,7 +199,7 @@ button:active {
 .form-box.register {
     visibility: hidden;
     opacity: 0; 
-    transition: opacity 0.6s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .container.active .form-box.register {
@@ -210,5 +211,41 @@ button:active {
     right: 50%;
     visibility: hidden; 
     opacity: 0;
-    transition: opacity 0.6s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+}
+.form-group.checkbox {
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 15px; 
+}
+
+.form-group.checkbox input[type="checkbox"] {
+    appearance: none; 
+    width: 20px;
+    height: 20px; 
+    border: 2px solid #ccc; 
+    border-radius: 4px;
+    cursor: pointer; 
+    margin-right: 10px; 
+    position: relative; 
+}
+
+.form-group.checkbox input[type="checkbox"]:checked {
+    background-color: hsla(186, 74%, 32%, 0.537); 
+    border-color:hsla(186, 74%, 32%, 0.537); 
+}
+
+.form-group.checkbox input[type="checkbox"]:checked::after {
+    content: "✔"; 
+    font-size: 14px; 
+    color: white; 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); /* Perfect centering */
+}
+
+.form-group.checkbox label {
+    color: #555; /* Label text color */
+    cursor: pointer; /* Pointer cursor on hover */
 }

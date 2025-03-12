@@ -49,14 +49,6 @@
                     <input type="text" id="cin" name="cin" placeholder="Enter your CIN" required>
                 </div>
                 <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select id="gender" name="gender" required>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label for="phone">Phone Number:</label>
                     <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
                 </div>
@@ -70,24 +62,25 @@
                     <label for="address">Address:</label>
                     <input type="text" name="address" placeholder="Enter your address">
                 </div>
+               <div class="form-group checkbox">
+                <input type="checkbox" id="isDoctor">
+                <label for="isDoctor">Are you a doctor?</label>
+            </div>
+            <div class="form-group" id="dotiGroup">
+                <label for="doti">DOTI:</label>
+                <input type="text" id="doti" placeholder="Enter your DOTI">
+            </div>
                 <div class="form-group">
-                    <label for="postalCode">Postal Code:</label>
-                    <input type="text" id="postalCode" name="postalCode" placeholder="Enter your postal code">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
                 </div>
                 <div class="form-group">
-                    <label for="maritalStatus">Marital Status</label>
-                    <select id="maritalStatus" name="maritalStatus">
-                        <option value="single">Single</option>
-                        <option value="married">Married</option>
-                        <option value="divorced">Divorced</option>
-                        <option value="widowed">Widowed</option>
-                    </select>
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
                 </div>
                
-                <div class="form-group">
-                    <label for="profileImage">Profile Image:</label>
-                    <input type="file" id="profileImage" name="profileImage" accept="image/*">
-                </div>
+                
+               
     
                 <!-- Submit button -->
                 <div class="form-group">
