@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const sendActivationEmail = require('./mailerController').sendActivationEmail;
 
 exports.register = async (req, res) => {
     try {
@@ -24,6 +26,7 @@ exports.register = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
+        const activationToken = crypto.randomBytes(32).toString("hex");
         const user = new User({
             first_name: fName,
             last_name: LName,
@@ -34,15 +37,20 @@ exports.register = async (req, res) => {
             tel: tel,
             doti: doti,
             family_statut: family_status,
-            role: Role
+            role: Role,
+            activationToken,
         });
+        //user.isActive = true;
+        //user.activationToken = null;
 
         await user.save();
+        sendActivationEmail(email, activationToken);
         res.status(201).json({ message: 'User registered successfully', success: true });
     } catch (err) {
         return res.status(500).json({ message: err.message, success: false });
     }
 };
+
 
 exports.login = async (req, res) => {
     try {
@@ -55,20 +63,22 @@ exports.login = async (req, res) => {
                 return res.status(400).json({ message: "Person not found", success: false });
             }
         }
-
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials', success: false });
         }
 
+        if (!user.isActive) {
+            sendActivationEmail(user.email, user.activationToken);
+            return res.status(403).json({ message: "Please activate your account first." });
+        }
         //const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         req.session.user = user;
-
         return res.status(200).redirect('../dash');
     } catch (err) {
-        return res.status(500).json({ error: err.message, success: false });
-    }
+        return res.status(500).json({ error: err.message, success: false });
+    }
 };
 
 exports.logout = async (req, res) => {
@@ -85,4 +95,27 @@ exports.logout = async (req, res) => {
     }
 };
 
+exports.activateAccount = async (req, res) => {
+    try {
+        const token = req.query.key;
+        const user = await User.findOne({ activationToken: token });
+
+        if (!user) {
+            return res.status(400).json({ message: "Invalid activation token" });
+        }
+
+        if (user.isActive) {
+            req.session.user = user;
+            return res.status(403).redirect('../dash');
+        }
+
+        user.isActive = true;
+        await user.save();
+        req.session.user = user;
+
+        res.status(200).json({ message: "Account activated successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
 

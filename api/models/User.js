@@ -14,6 +14,8 @@ const UserSchema = new mongoose.Schema({
     family_statut: {type: String},
     role: {type: Number, required: true},
     profil_img: {type: String, default: "png"},
+    isActive: { type: Boolean, default: false },
+    activationToken: { type: String },
     
 });
 
