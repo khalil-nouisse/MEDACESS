@@ -14,7 +14,6 @@ if (!process.env.MONGODB_URI) {
     process.exit(1);
 }
 
-console.log(process.env.MONGODB_URI)
 // Connect to MongoDB
 connectDB();
 
@@ -41,6 +40,20 @@ app.set('view engine', 'ejs');
 // Home Route
 app.get('/', (req, res) => {
     res.render('index', { user: req.session.user || null });
+});
+
+app.get('/login', (req, res) => {
+    res.render('login', { user: req.session.user || null });
+});
+
+app.get('/dash', (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+
+    //let fiveTreatments = treatmentsDisplay()
+    
+    res.render('dash', { user: req.session.user });
 });
 
 // Global Error Handler

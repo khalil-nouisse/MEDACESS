@@ -29,7 +29,7 @@ exports.register = async (req, res) => {
             last_name: LName,
             cin: CIN,
             sexe: sexe,
-            email: Emaill, // Ensure stored email is uppercase
+            email: Emaill,
             password: hashedPassword,
             tel: tel,
             doti: doti,
@@ -52,7 +52,7 @@ exports.login = async (req, res) => {
         if (!user) {
             user = await User.findOne({ cin: emailorcin });
             if (!user) {
-                return res.status(400).json({ message: "Invalid CIN or Email", success: false });
+                return res.status(400).json({ message: "Person not found", success: false });
             }
         }
 
@@ -61,12 +61,28 @@ exports.login = async (req, res) => {
             return res.status(400).json({ message: 'Invalid credentials', success: false });
         }
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        //const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         req.session.user = user;
 
-        return res.status(200).json({ token, success: true });
+        return res.status(200).redirect('../dash');
     } catch (err) {
         return res.status(500).json({ error: err.message, success: false });
     }
 };
+
+exports.logout = async (req, res) => {
+    try {
+        req.session.destroy((err) => {
+            if (err) {
+                return res.status(500).json({ message: "Logout failed", success: false });
+            }
+            res.clearCookie("token");
+            return res.status(200).json({ message: "Logout successful", success: true });
+        });
+    } catch (err) {
+        return res.status(500).json({ message: err.message, success: false });
+    }
+};
+
+
