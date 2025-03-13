@@ -6,6 +6,8 @@ const userRoutes  = require('./api/routes/userRoutes');
 const MongoStore = require('connect-mongo');
 const path = require("path");
 const treatmentRoutes = require("./routes/treatmentRoutes");
+const reclamationRoutes = require("./routes/reclamationRoutes");
+
 
 require('dotenv').config();
 
@@ -84,3 +86,5 @@ app.listen(PORT, () => {
 
 
 app.use("/api/treatments", treatmentRoutes);
+
+app.use("/api/reclamations", reclamationRoutes);
