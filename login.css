@@ -234,7 +234,6 @@ button:active {
     background-color: hsla(186, 74%, 32%, 0.537); 
     border-color:hsla(186, 74%, 32%, 0.537); 
 }
-
 .form-group.checkbox input[type="checkbox"]:checked::after {
     content: "✔"; 
     font-size: 14px; 
@@ -244,7 +243,9 @@ button:active {
     left: 50%; 
     transform: translate(-50%, -50%); /* Perfect centering */
 }
-
+#dotiGroup{
+    display: none;
+}
 .form-group.checkbox label {
     color: #555; /* Label text color */
     cursor: pointer; /* Pointer cursor on hover */
