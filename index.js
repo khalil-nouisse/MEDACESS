@@ -5,6 +5,8 @@ const authRoutes  = require('./api/routes/authRoutes');
 const userRoutes  = require('./api/routes/userRoutes');
 const MongoStore = require('connect-mongo');
 const path = require("path");
+const treatmentRoutes = require("./routes/treatmentRoutes");
+
 require('dotenv').config();
 
 const app = express();
@@ -79,3 +81,6 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://${DOMAINE}:${PORT}`);
 });
+
+
+app.use("/api/treatments", treatmentRoutes);

@@ -3,7 +3,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { exists } = require('../models/User');
 
-// Function to display the last 5 important Treatment
+const User = require("../models/User");
+const Treatment = require("../models/Treatment");
+
+// Function to display the last 5 important Treatments
 exports.treatmentsDisplay = async (req, res) => {
     try {
         if (!req.session.user || req.session.role !== 1) {
@@ -22,49 +25,43 @@ exports.treatmentsDisplay = async (req, res) => {
     }
 };
 
-exports.addNewTreatment = async (req, res) => {
-    try{/*
-        if (!req.session.user || req.session.role !== 1) {
-            return res.status(403).json({ message: 'Access Denied', success: false });
+exports.addTreatment = async (req, res) => {
+    try {
+        const { cin, name, age, gender, bloodType, type, description, medications } = req.body;
+        const doctorId = req.session.user ? req.session.user._id : null;
+
+        if (!doctorId) {
+            return res.status(401).json({ message: "Unauthorized: Doctor not logged in." });
         }
-        const {} = req.body;*/
-        const treatments = [
-            {
-                first_name: "John",
-                last_name: "Doe",
-                cin: "Nop100",
-                type: 1,
-                descript: "Patient suffering from fever",
-                notes: "Prescribed Paracetamol",
-                addedBy: "DR001",
-                priority: 2
-            },
-            {
-                first_name: "Jane",
-                last_name: "Smith",
-                cin: "CD789072",
-                type: 3,
-                descript: "Fractured left arm",
-                notes: "Referred to orthopedics",
-                addedBy: "DR002",
-                priority: 1
-            },
-            {
-                first_name: "Mark",
-                last_name: "Johnson",
-                cin: "EF3456444",
-                type: 0,
-                descript: "Allergic reaction to peanuts",
-                notes: "Prescribed antihistamines",
-                addedBy: "DR003",
-                priority: 3
-            }
-        ];
-        const savedTreatments = await Treatment.insertMany(treatments);
-        console.log("Treatments saved successfully:", savedTreatments);
-    } catch (err) {
-        return res.status(500).json({ message: err.message, success: false });
+
+        let patient = await User.findOne({ cin });
+
+        if (!patient) {
+            // Create a new patient in case not existing
+            patient = new User({ cin, name, age, gender, bloodType, role: "Patient" });
+            await patient.save();
+        } else {
+            // Update missing patient info
+            if (!patient.bloodType && bloodType) patient.bloodType = bloodType;
+            if (!patient.age && age) patient.age = age;
+            if (!patient.gender && gender) patient.gender = gender;
+            await patient.save();
+        }
+
+        // Create a new treatment record
+        const newTreatment = new Treatment({
+            patient: patient._id,
+            doctor: doctorId,
+            type,
+            description,
+            medications: type === "Ordonnance" ? medications : []
+        });
+
+        await newTreatment.save();
+
+        res.status(201).json({ message: "Treatment added successfully", treatment: newTreatment });
+    } catch (error) {
+        res.status(500).json({ message: "Server error: " + error.message });
     }
-    
 };
 
