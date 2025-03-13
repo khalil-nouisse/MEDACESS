@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedAccess Dashboard</title>
+    <link rel="stylesheet" href="assets/dashboard_doc.css">
+    <script src="https://kit.fontawesome.com/2775dde967.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">MedAccess</div>
+        <div class="searchbar">
+            <input type="text" placeholder="Search">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="profile-icon">
+            <img src="images/profile.png" alt="Profile">
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- SIDEBAR NAVIGATION -->
+        <nav class="sidebar">
+            <ul>
+                <li onclick="showSection('dashboard')" class="active"><i class="fas fa-home"></i> Dashboard</li>
+                <li onclick="showSection('profile')"><i class="fas fa-user"></i>Doctor Profile</li>
+                <li onclick="showSection('patients')"><i class="fas fa-user-md"></i> My Patients</li>
+                <li onclick="showSection('history')"><i class="fas fa-notes-medical"></i> Health History</li>
+                <li onclick="showSection('reclamations')"><i class="fas fa-exclamation-circle"></i>Reclamations</li>
+                <li onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</li>
+            </ul>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <main id="content">
+            <!-- Dashboard Section (The Default) -->
+            <section id="dashboard" class="active">
+                <div class="card-container">
+                    <div class="card">
+                        <h2>Welcome to MedAccess Doctor</h2>
+                        <p> Ready to provide excellent care today?</p>
+                    </div>
+                    <div class="card">
+                        <h2>Patient Care Tips</h2>
+                        <p>Always explain medication instructions clearly to improve patient adherence.</p>
+                    </div>
+                    <div class="card">
+                        <h2>Advice:</h2>
+                        <p>Encourage patients to maintain a healthy lifestyle, not just treat symptoms</p>
+                    </div>
+                    <div class="card">
+                        <h2>Reminder</h2>
+                        <p>A smile and reassurance can reduce patient anxiety significantly.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" style="display: none;">
+                <div class="profile-item">
+                    <label for="firstname">First Name:</label>
+                    <input type="text" id="firstname" value="John" readonly>
+                </div>
+                <div class="profile-item">
+                    <label for="lastname">Last Name:</label>
+                    <input type="text" id="lastname" value="Doe" readonly>
+                </div>
+                <div class="profile-item">
+                    <label for="cin">CIN:</label>
+                    <input type="text" id="cin" value="AB123456" readonly>
+                </div>
+                <div class="profile-item">
+                  <label for="doti">DOTI:</label>
+                  <input type="text" id="doti" value="1262383" readonly>
+              </div>
+                <div class="profile-item">
+                    <label for="phonenumber">Phone Number:</label>
+                    <input type="text" id="phonenumber" value="+212 600 000 000" readonly>
+                </div>
+                <div class="profile-item">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" value="john.doe@example.com" readonly>
+                </div>
+                
+                <div class="profile-item">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" value="123 Main St, Casablanca" readonly>
+                </div>
+                <div class="profile-item">
+                    <label for="gender">Gender:</label>
+                    <select id="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="profile-item">
+                    <label for="status">Marital Status:</label>
+                    <select id="status">
+                        <option value="single">Single</option>
+                        <option value="married">Married</option>
+                        <option value="divorced">Divorced</option>
+                    </select>
+                </div>
+                <div class="profile-item">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" value="30">
+                </div>
+                <div class="profile-item">
+                    <label for="postalcode">Postal Code:</label>
+                    <input type="text" id="postalcode" value="20000">
+                </div>
+                <button onclick="saveProfile()">Save Changes</button>
+            </section>
+
+            <!-- My Patients Section -->
+            <section id="patients" style="display: none;">
+                <h2>My Patient</h2>
+                <p>List of my patients and their :</p>
+                <div id="patients-list" class="patients-container">
+                    <!-- Patients list will be dynamically generated here -->
+                </div>
+            </section>
+
+            <!-- Health History Section -->
+            <section id="history" style="display:none;">
+              <h2>Health History</h2>
+              
+              <!-- Container to display patient data -->
+              <div id="patient-data"></div>
+            </section>
+
+            <section id="reclamations" style="display:none;">
+              <h2>Patient Reclamations</h2>
+              <div id="reclamations-container">
+                <!-- Reclamations will be dynamically added here -->
+              </div>
+            </section>
+            
+
+            
+        </main>
+    </div>
+
+    <script src="assets/dashboard_doc.js"></script>
+</body>
+</html>

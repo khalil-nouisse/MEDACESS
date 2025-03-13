@@ -65,6 +65,48 @@ exports.displayMyDoctors= async (req, res) => {
    }
 };
 
+exports.treatmentsDisplay = async (req, res) => {
+  try {
+    // Check if user is logged in
+    if (!req.session.user) {
+      return res.status(403).json({ message: 'Access Denied', success: false });
+    }
+
+    // Fetch treatments by CIN
+    const treatments = await Treatment.find({ cin: req.session.user.cin });
+
+    if (treatments.length > 0) {
+      return res.status(200).json({ treatments, success: true });
+    } else {
+      return res.status(404).json({ message: 'No treatments found', success: false });
+    }
+  } catch (err) {
+    console.error('Error fetching treatments:', err);
+    return res.status(500).json({ message: 'Internal Server Error', success: false });
+  }
+};
+
+exports.treatmentsDisplay2 = async (req, res) => {
+  try {
+    /*
+      if (!req.session.user) {
+          return res.status(403).json({ message: 'Access Denied', success: false });
+      }*/
+     console.log(req.session.user);
+
+      const Treatments = await Treatment.find({ cin: req.session.user.cin});
+
+      if (Treatments.length > 0) {
+          return res.status(200).json({ data: Treatments, success: true });
+          //return res.render('khalil', { user: req.session.user || null, data: Treatments });
+      } else {
+          return res.status(400).json({ message: 'There is no treatment added by you', success: false });
+      }
+  } catch (err) {
+      return res.status(500).json({ message: err.message, success: false });
+  }
+};
+
 exports.sendEmailReclamation = (userEmail, doctorEmail, reclamation , PatientFullName) => {
  
   const mailOptions = {
@@ -86,23 +128,27 @@ exports.sendEmailReclamation = (userEmail, doctorEmail, reclamation , PatientFul
       }
   });
 };
-exports.treatmentsDisplay = async (req, res) => {
+
+exports.Doctorfetch = async (req, res) => {
   try {
-    // Check if user is logged in
-    if (!req.session.user) {
-      return res.status(403).json({ message: 'Access Denied', success: false });
+    console.log("Request body doctorIDs:", req.body.doctorIDs);
+    
+    // Check if doctorIDs are provided in the request body
+    if (!req.body.doctorIDs || !Array.isArray(req.body.doctorIDs) || req.body.doctorIDs.length === 0) {
+      return res.status(400).json({ message: 'No doctor IDs provided', success: false });
     }
+    
+    // Find users whose doti matches any of the provided doctor IDs
+    const doctors = await User.find({ doti: { $in: req.body.doctorIDs } });
 
-    // Fetch treatments by CIN
-    const treatments = await Treatment.find({ cin: req.session.user.cin });
-
-    if (treatments.length > 0) {
-      return res.status(200).json({ treatments, success: true });
+    if (doctors.length > 0) {
+      return res.status(200).json({ data: doctors, success: true });
     } else {
-      return res.status(404).json({ message: 'No treatments found', success: false });
+      return res.status(400).json({ message: 'No doctors found with the provided IDs', success: false });
     }
   } catch (err) {
-    console.error('Error fetching treatments:', err);
-    return res.status(500).json({ message: 'Internal Server Error', success: false });
+    console.error("Error in Doctorfetch:", err);
+    return res.status(500).json({ message: err.message, success: false });
   }
 };
+

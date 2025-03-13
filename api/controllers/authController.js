@@ -91,7 +91,8 @@ exports.logout = async (req, res) => {
                 return res.status(500).json({ message: "Logout failed", success: false });
             }
             res.clearCookie("token");
-            return res.status(200).json({ message: "Logout successful", success: true });
+            return res.status(200).redirect("../dash");
+            //return res.status(200).json({ message: "Logout successful", success: true });
         });
     } catch (err) {
         return res.status(500).json({ message: err.message, success: false });
@@ -121,4 +122,71 @@ exports.activateAccount = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+exports.forgotPassword = async (req , res) => {
+    try{
+        const  { email } = req.body;
+        const user = await User.findOne({ email: email.toUpperCase() });
+
+        if(!user){
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Generate a secure reset token
+        const resetToken = crypto.randomBytes(32).toString("hex");
+        const resetTokenExpire = Date.now() + 3600000; // Token valid for 1 hour
+
+        // Hash the token (to store securely in DB)
+         const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+
+        user.resetPasswordToken = hashedToken;
+        user.resetPasswordExpire = resetTokenExpire;
+
+        await user.save();
+
+        //sendding password recovery in email
+        sendPasswordRecoverEmail(user.email , resetToken);
+        res.status(200).json({ message: "Password reset email sent" });
+        
+    }
+    catch (err) {
+        res.status(500).json({error: err.message});
+    }
+}
+
+exports.validateResetToken = async (req, res) => {
+    try {
+        const { key: token } = req.query;
+        const { newPassword } = req.body; // New password from the user
+
+        if (!token || !newPassword) {
+            return res.status(400).json({ message: "Invalid request" });
+        }
+        
+        const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+        const user = await User.findOne({
+            resetPasswordToken: hashedToken,
+            resetPasswordExpire: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).json({ message: "Invalid or expired token" });
+        }
+
+        // Hash the new password before saving
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(newPassword, salt);
+        
+        // Remove reset token fields
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+        
+        await user.save();
+
+        res.status(200).json({ message: "Valid token" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}; 
 

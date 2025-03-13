@@ -59,7 +59,6 @@ header.scrolled {
 .container {
   display: flex;
 }
-
 /* Sidebar Navigation */
 .sidebar {
   width: 250px;
@@ -67,6 +66,7 @@ header.scrolled {
   position: fixed;
   padding: 20px 0;
   height: 100vh;
+  transition: width 0.3s ease, padding 0.3s ease; /* Add smooth transition for resizing */
 }
 
 .sidebar ul {
@@ -90,6 +90,59 @@ header.scrolled {
   background: #16a085;
   padding-left: 30px;
 }
+
+/* Mobile Responsive Sidebar */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 200px; /* Slightly smaller sidebar width on tablets */
+  }
+
+  .sidebar ul li {
+    font-size: 16px; /* Smaller font size */
+    padding: 16px 20px; /* Adjust padding for better fit */
+    gap: 10px; /* Reduce gap between text and icons */
+  }
+}
+
+/* Small Mobile Screens */
+@media (max-width: 600px) {
+  .sidebar {
+    width: 0; /* Hide sidebar on small screens */
+    padding: 0; /* Remove padding */
+    overflow: hidden; /* Prevent content from showing */
+    position: fixed;
+  }
+
+  .sidebar.open {
+    width: 250px; /* Show sidebar when 'open' class is added */
+  }
+
+  .sidebar ul {
+    display: none; /* Hide menu items initially */
+  }
+
+  .sidebar.open ul {
+    display: block; /* Show menu items when sidebar is open */
+  }
+
+  .sidebar ul li {
+    padding: 14px 16px; /* Adjust padding for smaller screens */
+  }
+
+  /* Optional: Add a toggle button for mobile */
+  .sidebar-toggle {
+    display: block;
+    background-color: #34495e;
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+}
+
 
 /* Main Content */
 main {
@@ -665,4 +718,45 @@ button:hover {
 }
 .doctor-card:nth-child(4) {
   animation-delay: 0.4s;
+}
+/*reclamation style */
+#reclamation {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+#reclamation h2 {
+  margin-bottom: 20px;
+}
+
+.form-item {
+  margin-bottom: 15px;
+}
+
+.form-item label {
+  font-weight: bold;
+}
+
+#doctor, #reclamation {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
 }

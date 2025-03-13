@@ -68,8 +68,13 @@ app.get('/login', (req, res) => {
 app.get('/dash', (req, res) => {
     if (!req.session.user) {
         return res.redirect('/login');
-    }    
-    res.render('dashboard', { user: req.session.user });
+    } 
+    if(req.session.user.role === 0){
+        res.render('dashboard', { user: req.session.user });
+    } else {
+        res.render('dashboard_doc', { user: req.session.user });
+    }
+    
 })
 
 app.get('/update', (req, res) => {
@@ -82,6 +87,10 @@ app.get('/update', (req, res) => {
 
 app.get('/login', (req, res) => {
     res.render('login', { user: req.session.user || null });
+});
+
+app.get('/forgot', (req, res) => {
+    res.render('password');
 });
 // Global Error Handler
 app.use((err, req, res, next) => {
