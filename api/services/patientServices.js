@@ -88,21 +88,21 @@ exports.sendEmailReclamation = (userEmail, doctorEmail, reclamation , PatientFul
 };
 exports.treatmentsDisplay = async (req, res) => {
   try {
-    /*
-      if (!req.session.user) {
-          return res.status(403).json({ message: 'Access Denied', success: false });
-      }*/
-     console.log(req.session.user);
+    // Check if user is logged in
+    if (!req.session.user) {
+      return res.status(403).json({ message: 'Access Denied', success: false });
+    }
 
-      const Treatments = await Treatment.find({ cin: req.session.user.cin});
+    // Fetch treatments by CIN
+    const treatments = await Treatment.find({ cin: req.session.user.cin });
 
-      if (Treatments.length > 0) {
-          return res.status(200).json({ data: Treatments, success: true });
-          //return res.render('khalil', { user: req.session.user || null, data: Treatments });
-      } else {
-          return res.status(400).json({ message: 'There is no treatment added by you', success: false });
-      }
+    if (treatments.length > 0) {
+      return res.status(200).json({ treatments, success: true });
+    } else {
+      return res.status(404).json({ message: 'No treatments found', success: false });
+    }
   } catch (err) {
-      return res.status(500).json({ message: err.message, success: false });
+    console.error('Error fetching treatments:', err);
+    return res.status(500).json({ message: 'Internal Server Error', success: false });
   }
 };

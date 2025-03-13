@@ -1,6 +1,6 @@
 const BASE_URL = 'http://localhost:3000';
 
-async function Salam(){
+async function Salam22(){
   const response = await fetch(`${BASE_URL}/user/dash`, {
     method: "GET",
     headers: {
@@ -8,98 +8,144 @@ async function Salam(){
     },
   });
   
-  const data = await response.json();
-  console.log('Data => ',data);
+  const apiResponse = await response.json();
+  
+  const groupedData = apiResponse.data.reduce((acc, item) => {
+    const key = item.type;
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    acc[key].push(item);
+    return acc;
+  }, {});
+  
+  console.log(groupedData);
+  //console.log('Data => ',apiResponse);
 }
 
-async function fetchAndProcessHealthHistory() {
+async function Salam() {
   try {
-    const response = await fetch(`${BASE_URL}/user/dash`);
-    const responseData = await response.json();
+    const response = await fetch(`${BASE_URL}/user/dash`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-    if (responseData.success) {
-      const transformedData = transformData(responseData.data);
-      displayHealthHistory(transformedData);
-    } else {
-      console.error("Error fetching data");
+    const apiResponse = await response.json();
+
+    // Debug: Log the API response to check its structure
+    console.log("API Response:", apiResponse);
+
+    // Ensure that 'treatments' exists and is an array
+    if (!Array.isArray(apiResponse.treatments)) {
+      throw new Error('API response does not contain valid "treatments" array');
     }
+
+    // Group data by type
+    return apiResponse.treatments.reduce((acc, item) => {
+      const key = item.type;
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(item);
+      return acc;
+    }, {});
   } catch (error) {
-    console.error("Error fetching health history:", error);
+    console.error("Error fetching data:", error);
+    return {}; // Return an empty object on failure
   }
 }
 
-// Function to transform data into categories
-function transformData(data) {
-  let formattedData = {
-    vaccinations: [],
-    allergies: [],
-    operations: [],
-    medicaments: []
-  };
+async function displayHealthHistory() {
+  const historySection = document.getElementById("history");
+  
+  // Hide section content
+  historySection.innerHTML = "";
 
-  data.forEach((item) => {
-    let entry = {
-      name: item.descript,
-      date: new Date(item.date).toISOString().split("T")[0], // Format date
-      doctor: item.addedBy
-    };
+  // Add the card for blood type
+  const bloodTypeCard = createBloodTypeCard();
+  historySection.appendChild(bloodTypeCard);
 
-    if (item.type === 0) {
-      formattedData.vaccinations.push(entry);
-    } else if (item.type === 1) {
-      entry.severity = "Moderate"; // Example severity level
-      formattedData.allergies.push(entry);
-    } else if (item.type === 2 || item.type === 3) {
-      formattedData.operations.push(entry);
-    } else {
-      formattedData.medicaments.push({
-        name: item.notes,
-        dosage: "500mg",
-        frequency: "Twice a day",
-        doctor: item.addedBy
-      });
-    }
+  // Fetch and wait for data
+  const healthHistoryData = await Salam();
+
+  console.log('HealthHistory:', healthHistoryData);
+
+  // Loop through each grouped type and create a card
+  Object.entries(healthHistoryData).forEach(([type, items]) => {
+    const card = createCardWithDoctor(type, items);
+    historySection.appendChild(card);
   });
-
-  return formattedData;
 }
 
-// Groupe sanguin constant du patient
-const patientBloodType = "A+";
+function createCardWithDoctor(type, items) {
+  const card = document.createElement("div");
+  card.className = "history-card";
 
-// Fonction pour afficher une section et masquer les autres
+  const cardTitle = document.createElement("h3");
+  
+  // Convert type to number and match correctly
+  switch (Number(type)) {
+    case 0: cardTitle.textContent = "Vaccination"; break;
+    case 1: cardTitle.textContent = "Operation"; break;
+    case 2: cardTitle.textContent = "Consultation"; break;
+    case 3: cardTitle.textContent = "Lunettes"; break;
+    case 4: cardTitle.textContent = "Changement"; break;
+    default: cardTitle.textContent = "Unknown Type"; break;
+  }
+
+  card.appendChild(cardTitle);
+
+  // Add each item as a paragraph
+  items.forEach(item => {
+    const itemParagraph = document.createElement("p");
+    itemParagraph.textContent = `${item.first_name} ${item.last_name} - ${item.descript}`;
+    card.appendChild(itemParagraph);
+  });
+
+  return card;
+}
+
+
+
+// BLOOD type constent for patient
+const patientBloodType = "A+";
+//function to display a section and hide others
 function showSection(sectionId) {
-  // Masquer toutes les sections
+  // hide all sections
   document.querySelectorAll("main section").forEach(section => {
       section.style.display = "none";
   });
-
-  // Afficher la section sélectionnée
+  
+  // display the selected section
   document.getElementById(sectionId).style.display = "block";
 
-  // Supprimer la classe "active" de tous les éléments de la barre latérale
+  // delete active from all li of the sidebar
   document.querySelectorAll(".sidebar ul li").forEach(item => {
       item.classList.remove("active");
   });
 
-  // Ajouter la classe "active" à l'élément cliqué
+  // Add the active for the selected section
   const clickedItem = document.querySelector(`.sidebar ul li[onclick*="${sectionId}"]`);
   if (clickedItem) {
       clickedItem.classList.add("active");
   }
 
-  // Si la section est "history", afficher les données de santé
+  //if the section is history display health history for patient
   if (sectionId === "history") {
-    fetchAndProcessHealthHistory();
+      displayHealthHistory();
   }
-
-  // Si la section est "doctors", afficher la liste des médecins
+  //if section is doctors , display list of doctors
   if (sectionId === "doctors") {
       displayDoctors();
   }
+  if (sectionId === "reclamation") {
+    populateDoctorsDropdown();
+}
 }
 
-// Données des médecins (nom et spécialité)
+// data of doctors(name,speciality)
 const doctors = [
   { name: "Dr. Smith", specialty: "Cardiologist" },
   { name: "Dr. Johnson", specialty: "Dermatologist" },
@@ -107,14 +153,14 @@ const doctors = [
   { name: "Dr. Lee", specialty: "Orthopedic Surgeon" },
 ];
 
-// Fonction pour afficher la liste des médecins
+// function to display doctors
 function displayDoctors() {
   const doctorsList = document.getElementById("doctors-list");
 
-  // Vider le contenu existant
+  //  Empty existent content
   doctorsList.innerHTML = "";
 
-  // Ajouter chaque médecin à la liste
+  //  add doctor to the list
   doctors.forEach((doctor) => {
       const doctorCard = document.createElement("div");
       doctorCard.classList.add("doctor-card");
@@ -132,8 +178,7 @@ function displayDoctors() {
   });
 }
 
-// Données simulées pour les vaccinations, allergies, opérations et médicaments
-/*
+// Simulated data for vaccinations, allergies, surgeries, and medications
 const healthHistoryData = {
   vaccinations: [
       { name: "COVID-19 Vaccine", date: "2023-01-15", doctor: "Dr. Smith" },
@@ -151,9 +196,9 @@ const healthHistoryData = {
       { name: "Paracetamol", dosage: "500mg", frequency: "Twice a day", doctor: "Dr. Johnson" },
       { name: "Ibuprofen", dosage: "400mg", frequency: "Once a day", doctor: "Dr. Brown" }
   ]
-};*/
+};
 
-// Fonction pour regrouper les éléments par médecin
+// function to regroup elements by doctor
 function groupByDoctor(items) {
   return items.reduce((grouped, item) => {
       const doctor = item.doctor;
@@ -165,49 +210,7 @@ function groupByDoctor(items) {
   }, {});
 }
 
-// Fonction pour créer une carte (box) avec les éléments groupés par médecin
-function createCardWithDoctor(title, items) {
-  const card = document.createElement("div");
-  card.className = "history-card";
-
-  const cardTitle = document.createElement("h3");
-  cardTitle.textContent = title;
-  card.appendChild(cardTitle);
-
-  // Grouper les éléments par médecin
-  const groupedByDoctor = groupByDoctor(items);
-
-  // Parcourir chaque médecin et créer une section pour lui
-  for (const doctor in groupedByDoctor) {
-      const doctorSection = document.createElement("div");
-      doctorSection.className = "doctor-section";
-
-      const doctorName = document.createElement("h4");
-      doctorName.textContent = `Doctor: ${doctor}`;
-      doctorSection.appendChild(doctorName);
-
-      groupedByDoctor[doctor].forEach(item => {
-          const itemDiv = document.createElement("div");
-          itemDiv.className = "history-item";
-
-          for (const key in item) {
-              if (key !== "doctor") { // Ne pas afficher le champ "doctor" dans les détails
-                  const p = document.createElement("p");
-                  p.textContent = `${key}: ${item[key]}`;
-                  itemDiv.appendChild(p);
-              }
-          }
-
-          doctorSection.appendChild(itemDiv);
-      });
-
-      card.appendChild(doctorSection);
-  }
-
-  return card;
-}
-
-// Fonction pour créer une carte pour le groupe sanguin du patient
+// function to create the blood type section
 function createBloodTypeCard() {
   const card = document.createElement("div");
   card.className = "history-card";
@@ -223,35 +226,49 @@ function createBloodTypeCard() {
   return card;
 }
 
-// Fonction pour afficher les données de santé dans la section "Health History"
-function displayHealthHistory(healthHistoryData) {
-  const historySection = document.getElementById("history");
-  historySection.innerHTML = "";
-  healthHistoryData = fetch
 
-  const bloodTypeCard = createBloodTypeCard();
-  historySection.appendChild(bloodTypeCard);
+// Function to populate doctors dropdown in reclamation form
+function populateDoctorsDropdown() {
+  const doctorSelect = document.getElementById("doctor");
+  doctorSelect.innerHTML = ""; // Clear the existing options
 
-  // Create and append category cards
-  if (healthHistoryData.vaccinations.length)
-    historySection.appendChild(createCardWithDoctor("Vaccinations", healthHistoryData.vaccinations));
+  // Add default "Select a doctor" option
+  const defaultOption = document.createElement("option");
+  defaultOption.textContent = "Select a doctor";
+  doctorSelect.appendChild(defaultOption);
 
-  if (healthHistoryData.allergies.length)
-    historySection.appendChild(createCardWithDoctor("Allergies", healthHistoryData.allergies));
-
-  if (healthHistoryData.operations.length)
-    historySection.appendChild(createCardWithDoctor("Operations", healthHistoryData.operations));
-
-  if (healthHistoryData.medicaments.length)
-    historySection.appendChild(createCardWithDoctor("Medicaments", healthHistoryData.medicaments));
+  // Add each doctor to the dropdown
+  doctors.forEach((doctor) => {
+      const option = document.createElement("option");
+      option.value = doctor.name;
+      option.textContent = doctor.name;
+      doctorSelect.appendChild(option);
+  });
 }
 
+// Function to handle reclamation submission
+function submitReclamation() {
+  const doctor = document.getElementById("doctor").value;
+  const reclamationText = document.getElementById("reclamation").value;
 
-// Appeler la fonction pour afficher le tableau de bord par défaut au chargement de la page
+  // Validate input
+  if (!doctor || !reclamationText) {
+      alert("Please select a doctor and provide your reclamation.");
+      return;
+  }
+
+  // Simulate sending the reclamation (e.g., to a server or display a confirmation)
+  alert(`Your reclamation has been submitted to ${doctor}. Thank you!`);
+
+  // Clear the form
+  document.getElementById("doctor").value = "";
+  document.getElementById("reclamation").value = "";
+}
+// call the dashboard function to display dashboard when we display the page
 window.onload = () => {
-  showSection("dashboard"); // Afficher le tableau de bord par défaut
+  showSection("dashboard"); 
 };
 
 function logout() {
-  window.location.href = "login.html";  // Redirects to login.html
+  window.location.href = "login.html";  // logout to login.html
 }
