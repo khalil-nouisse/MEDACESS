@@ -310,6 +310,55 @@ button:hover {
   animation-delay: 0.4s;
 }
 
+/*healthcare history for patient*/
+#history {
+  padding: 20px;
+  background-color: #f4f6f7;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+#history h2 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+/* Style for the CIN input field */
+#cin-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px; /* Margin between input and button */
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+#cin-input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Style for the submit button */
+#history button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px; /* Margin between button and patient data */
+}
+
+#history button:hover {
+  background-color: #2980b9;
+}
 /* Healthcare History for Patient */
 
 #history {
@@ -388,6 +437,66 @@ button:hover {
 
 #patient-data p strong {
   color: #2c3e50;
+}
+/* General Styling for Inputs */
+input[type="text"], input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Styling for the read-only Name input */
+input[readonly] {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+/* Label Styling */
+label {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+
+/* Button Styling */
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Container Styling */
+#patient-data {
+  margin-top: 20px;
+}
+
+/* Spacing between inputs */
+input + label {
+  margin-top: 5px;
+}
+
+input {
+  margin-top: 5px;
+}
+
+/* Error message Styling */
+#error-message {
+  color: red;
+  font-weight: bold;
 }
 
 
