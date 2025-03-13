@@ -81,7 +81,7 @@ exports.login = async (req, res) => {
         return res.status(200).redirect('../dash');
     } catch (err) {
         return res.status(500).json({ error: err.message, success: false });
-    }
+    }
 };
 
 exports.logout = async (req, res) => {
@@ -190,4 +190,4 @@ exports.validateResetToken = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-};
+};  
