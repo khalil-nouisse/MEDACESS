@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Treatments</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">My Treatments</h2>
+
+        <!-- Filter by treatment type -->
+        <label for="filterType">Filter by Type:</label>
+        <select id="filterType" class="form-select w-25 mb-3" onchange="filterTreatments()">
+            <option value="all">All</option>
+            <option value="1">Type 1</option>
+            <option value="2">Type 2</option>
+            <option value="3">Type 3</option>
+            <option value="0">Type 0</option>
+        </select>
+
+        <% if (data.length > 0) { %>
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Doctor</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody id="treatmentTable">
+                    <% data.forEach(treatment => { %>
+                        <tr class="treatment-row" data-type="<%= treatment.type %>">
+                            <td><%= treatment.first_name || 'N/A' %></td>
+                            <td><%= treatment.cin || 'N/A' %></td>
+                            <td><%= treatment.descript || 'N/A' %></td>
+                            <td><%= treatment.type || 'N/A' %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <div class="alert alert-info">There are no treatments added by you.</div>
+        <% } %>
+    </div>
+
+    <script>
+        function filterTreatments() {
+            let selectedType = document.getElementById("filterType").value;
+            let rows = document.querySelectorAll(".treatment-row");
+
+            rows.forEach(row => {
+                if (selectedType === "all" || row.getAttribute("data-type") === selectedType) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
