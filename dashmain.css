@@ -152,9 +152,6 @@ header {
   flex-wrap: wrap;
   gap: 50px;
 }
-.profile{
-  z-index: 2;
-}
 .nav {
   min-height: 91vh;
   width: 250px;
@@ -192,6 +189,9 @@ header {
   gap: 20px;
   transition: all 0.1s ease-in-out;
 }
+.nav-option a{
+  text-decoration: none;
+}
 .nav-option:hover {
   border-left: 5px solid #a2a2a2;
   background-color: #dadada;
@@ -227,6 +227,85 @@ header {
   justify-content: space-around;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
+}
+/* Improved Profile section styling */
+#profile {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.profile-details {
+  width: 100%;
+  max-width: 600px;
+  background-color: var(--background-color2);
+  border-radius: 20px;
+  box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.3);
+  padding: 30px;
+}
+
+.profile-item {
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-item label {
+  font-weight: 500;
+  color: var(--secondary-color);
+  text-align: right;
+}
+
+.profile-item input, 
+.profile-item select {
+  height: 42px;
+  border-radius: 8px;
+  background-color: var(--background-color3);
+  padding: 0 15px;
+  font-size: 15px;
+  outline: none;
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
+.profile-item input[readonly] {
+  background-color: #f8f8f8;
+  color: #666;
+}
+
+.profile-details button {
+  height: 45px;
+  width: 150px;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-left: 195px; /* Align with inputs */
+}
+
+.profile-details button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .profile-item {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-item label {
+    text-align: left;
+  }
+  
+  .profile-details button {
+    margin-left: 0;
+  }
 }
 .box:hover {
   transform: scale(1.08);

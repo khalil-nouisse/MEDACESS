@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedAccess Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://kit.fontawesome.com/2775dde967.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">MedAccess</div>
+        <div class="searchbar">
+            <input type="text" placeholder="Search">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="profile-icon">
+            <img src="images/profile.png" alt="Profile">
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- SIDEBAR NAVIGATION -->
+        <nav class="sidebar">
+            <ul>
+                <li onclick="showSection('dashboard')" class="active"><i class="fas fa-home"></i> Dashboard</li>
+                <li onclick="showSection('profile')"><i class="fas fa-user"></i> Profile</li>
+                <li onclick="showSection('doctors')"><i class="fas fa-user-md"></i> My Doctors</li>
+                <li onclick="showSection('history')"><i class="fas fa-notes-medical"></i> Health History</li>
+                <li onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</li>
+            </ul>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <main id="content">
+            <!-- Dashboard Section (Default) -->
+            <section id="dashboard">
+                <div class="card-container">
+                    <div class="card">Welcome to MedAccess</div>
+                    <div class="card">Today's Health Tip</div>
+                    <div class="card">Mental Well-being Check</div>
+                    <div class="card">Health Myths & Facts</div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" style="display: none;">
+                <h2>My Profile</h2>
+                <p>Name: John Doe</p>
+                <p>Email: johndoe@example.com</p>
+                <p>Age: 30</p>
+            </section>
+
+            <!-- My Doctors Section -->
+            <section id="doctors" style="display: none;">
+                <h2>My Doctors</h2>
+                <p>List of assigned doctors and their specialties.</p>
+            </section>
+
+            <!-- Health History Section -->
+            <section id="history" style="display: none;">
+                <h2>Health History</h2>
+                <p>View your medical records and past appointments.</p>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
