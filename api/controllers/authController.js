@@ -6,11 +6,14 @@ const sendActivationEmail = require('./mailerController').sendActivationEmail;
 
 exports.register = async (req, res) => {
     try {
-        const { first_name, last_name, email, password, sexe, tel, family_status, CIN, doti } = req.body;
+        console.log("Received Data:", req.body);
+        const { first_name, last_name, email, password, tel, CIN, doti } = req.body;
 
         const fName = first_name.toUpperCase();
         const LName = last_name.toUpperCase();
         const Emaill = email.toUpperCase();
+        const sexe = true;
+        const family_status = "s";
         let Role = 0;
         if(doti) Role = 1;
 
@@ -75,7 +78,7 @@ exports.login = async (req, res) => {
         //const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         req.session.user = user;
-        return res.status(200).redirect('../dash');
+        return res.status(200).json({ success: true});
     } catch (err) {
         return res.status(500).json({ error: err.message, success: false });
     }

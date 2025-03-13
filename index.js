@@ -7,6 +7,7 @@ const MongoStore = require('connect-mongo');
 const router = express.Router();
 const { treatmentsDisplay } = require('./api/services/patientServices');
 const path = require("path");
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
@@ -21,7 +22,8 @@ if (!process.env.MONGODB_URI) {
 // Connect to MongoDB
 connectDB();
 
-// Middleware
+// Middlewares
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
