@@ -16,7 +16,9 @@ const UserSchema = new mongoose.Schema({
     profil_img: {type: String, default: "png"},
     isActive: { type: Boolean, default: false },
     activationToken: { type: String },
-    
+    activationTokenEpire: { type: Date },
+    resetPasswordToken: { type: String },
+    resetPasswordExpire: { type: Date }
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -9,10 +9,10 @@ exports.getLastFiveReclamations = async (req, res) => {
         }
 
         // Fetch the last 5 reclamations for the logged-in doctor
-        const reclamations = await Reclamation.find({ doctor: doctorId })
-            .sort({ date: -1 }) 
+        const reclamations = await Reclamation.find({ doctor: doctorId , status : "Open"})
+            .sort({ createdAt: -1 }) 
             .limit(5)
-            .populate("patient", "name cin")
+            .populate("user", "name cin")
 
         res.status(200).json(reclamations);
     } catch (error) {

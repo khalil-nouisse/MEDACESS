@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
      doctor: { type: mongoose.Schema.Types.ObjectId , ref: 'User', required: true},
      title: { type: String, required: true }, 
      description: { type: String, required: true },
-     status: { type: String, enum: ['Open', 'In Progress', 'Resolved'], default: 'Open' },
+     status: { type: String, enum: ['Open', 'Resolved'], default: 'Open' },
      createdAt: { type: Date, default: Date.now }
  });
  

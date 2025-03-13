@@ -7,7 +7,7 @@ const User = require("../models/User");
 const treatment = require("../models/Treatment");
 
 // Function to display the last 5 important Treatments
-exports.treatmentsDisplay = async (req, res) => {
+exports.treatments3Display = async (req, res) => {
     try {
         if (!req.session.user || req.session.role !== 1) {
             return res.status(403).json({ message: 'Access Denied', success: false }).redirect('/403');

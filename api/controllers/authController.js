@@ -2,7 +2,10 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const { callbackify } = require('util');
 const sendActivationEmail = require('./mailerController').sendActivationEmail;
+const { sendPasswordRecoverEmail } = require("../controllers/mailerController");
+
 
 exports.register = async (req, res) => {
     try {
@@ -119,3 +122,61 @@ exports.activateAccount = async (req, res) => {
     }
 };
 
+
+
+exports.forgotPassword = async (req , res) => {
+    try{
+        const  { email } = req.body;
+        const user = await User.findOne({ email: email.toUpperCase() });
+
+        if(!user){
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Generate a secure reset token
+        const resetToken = crypto.randomBytes(32).toString("hex");
+        const resetTokenExpire = Date.now() + 3600000; // Token valid for 1 hour
+
+        // Hash the token (to store securely in DB)
+         const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+
+        // Save token & expiration in the user's document
+        user.resetPasswordToken = hashedToken;
+        user.resetPasswordExpire = resetTokenExpire;
+
+        await user.save();
+
+        //sendding password recovery in email
+        sendPasswordRecoverEmail(user.email , resetToken);
+        res.status(200).json({ message: "Password reset email sent" });
+        
+    }
+    catch (err) {
+        res.status(500).json({error: err.message});
+    }
+}
+
+exports.validateResetToken = async (req, res) => {
+    try {
+        const { key: token } = req.query;
+
+        if (!token) {
+            return res.status(400).json({ message: "Invalid or missing token" });
+        }
+        
+        const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+        const user = await User.findOne({
+            resetPasswordToken: hashedToken,
+            resetPasswordExpire: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).json({ message: "Invalid or expired token" });
+        }
+
+        res.status(200).json({ message: "Valid token" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
