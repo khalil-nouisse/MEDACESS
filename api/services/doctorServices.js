@@ -27,7 +27,7 @@ exports.addNewTreatment = async (req, res) => {
         if (!req.session.user || req.session.role !== 1) {
             return res.status(403).json({ message: 'Access Denied', success: false });
         }
-        const {} = req.body;*/
+        const { cin } = req.body;*/
         const treatments = [
             {
                 first_name: "John",
@@ -42,7 +42,7 @@ exports.addNewTreatment = async (req, res) => {
             {
                 first_name: "Jane",
                 last_name: "Smith",
-                cin: "CD789072",
+                cin: "Nop100",
                 type: 3,
                 descript: "Fractured left arm",
                 notes: "Referred to orthopedics",

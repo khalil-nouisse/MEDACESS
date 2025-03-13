@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const TreatmentSchema = new mongoose.Schema({
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
-    cin: { type: String, required: true, unique: true },
+    cin: { type: String, required: true },
     type: { type: Number, required: true, default: 0 }, // Default should be a valid number
     descript: { type: String, required: true },
     notes: { type: String },

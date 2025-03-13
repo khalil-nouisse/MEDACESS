@@ -4,6 +4,8 @@ const { connectDB } = require('./config/db');
 const authRoutes  = require('./api/routes/authRoutes');
 const userRoutes  = require('./api/routes/userRoutes');
 const MongoStore = require('connect-mongo');
+const router = express.Router();
+const { treatmentsDisplay } = require('./api/services/patientServices');
 const path = require("path");
 require('dotenv').config();
 
@@ -45,6 +47,16 @@ app.use('/src', express.static(path.join(__dirname, './public')));
 // Home Route 
 app.get('/', (req, res) => {
     res.render('index', { user: req.session.user || null });
+});
+
+app.get('/khalil', async (req, res) => {
+    try {
+        const response = await treatmentsDisplay(req, res);
+        console.log(response);
+        //res.render('khalil', { user: req.session.user || null, data: response });
+    } catch (error) {
+        console.error("Error fetching user history:", error);
+    }
 });
 
 app.get('/login', (req, res) => {
