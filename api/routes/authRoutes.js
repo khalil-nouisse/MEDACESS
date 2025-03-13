@@ -3,13 +3,12 @@ const { register, login, logout, activateAccount} = require('../controllers/auth
 const { forgotPassword } = require("../controllers/authController");
 
 const router = express.Router();
-
+const { forgotPassword, validateResetToken } = require("../controllers/authController");
 router.post('/register', register);
 router.post('/login', login);
 router.get('/logout', logout);
 router.get('/activate', activateAccount);
 router.get('/reset-password', validateResetToken);
-const { forgotPassword, validateResetToken } = require("../controllers/authController");
 router.post('/forgot-password', forgotPassword);
 
 

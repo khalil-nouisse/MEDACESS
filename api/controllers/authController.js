@@ -159,9 +159,10 @@ exports.forgotPassword = async (req , res) => {
 exports.validateResetToken = async (req, res) => {
     try {
         const { key: token } = req.query;
+        const { newPassword } = req.body; // New password from the user
 
-        if (!token) {
-            return res.status(400).json({ message: "Invalid or missing token" });
+        if (!token || !newPassword) {
+            return res.status(400).json({ message: "Invalid request" });
         }
         
         const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
@@ -174,6 +175,16 @@ exports.validateResetToken = async (req, res) => {
         if (!user) {
             return res.status(400).json({ message: "Invalid or expired token" });
         }
+
+        // Hash the new password before saving
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(newPassword, salt);
+        
+        // Remove reset token fields
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+        
+        await user.save();
 
         res.status(200).json({ message: "Valid token" });
     } catch (err) {
