@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { exists } = require('../models/User');
 
 const User = require("../models/User");
-const Treatment = require("../models/Treatment");
+const treatment = require("../models/Treatment");
 
 // Function to display the last 5 important Treatments
 exports.treatmentsDisplay = async (req, res) => {
@@ -13,7 +13,7 @@ exports.treatmentsDisplay = async (req, res) => {
             return res.status(403).json({ message: 'Access Denied', success: false }).redirect('/403');
         }
 
-        const DocTreatments = await Treatment.find({ addedBy: req.session.doti, solved: false }).sorted({ priority: -1}).limit(5);
+        const DocTreatments = await treatment.find({ addedBy: req.session.doti, solved: false }).sorted({ priority: -1}).limit(5);
 
         if (DocTreatments.length > 0) {
             return res.status(200).json({ data: DocTreatments, success: true });
@@ -49,7 +49,7 @@ exports.addTreatment = async (req, res) => {
         }
 
         // Create a new treatment record
-        const newTreatment = new Treatment({
+        const newTreatment = new treatment({
             patient: patient._id,
             doctor: doctorId,
             type,
