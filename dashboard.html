@@ -29,6 +29,7 @@
                 <li onclick="showSection('profile')"><i class="fas fa-user"></i> Profile</li>
                 <li onclick="showSection('doctors')"><i class="fas fa-user-md"></i> My Doctors</li>
                 <li onclick="showSection('history')"><i class="fas fa-notes-medical"></i> Health History</li>
+                <li onclick="showSection('reclamation')"><i class="fas fa-exclamation-circle"></i> Reclamation</li>
                 <li onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</li>
             </ul>
         </nav>
@@ -126,6 +127,22 @@
                 <h2>Health History</h2>
                 <p>View your medical records and past appointments.</p>
             </section>
+
+            <section id="reclamation" style="display: none;">
+                <h2>Submit a Reclamation</h2>
+                <div class="form-item">
+                    <label for="doctor">Choose a Doctor:</label>
+                    <select id="doctor">
+                        <!-- Options will be dynamically generated -->
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label for="reclamation">Your Reclamation:</label>
+                    <textarea id="reclamation" placeholder="Describe your concern..."></textarea>
+                </div>
+                <button onclick="submitReclamation()">Submit</button>
+            </section>
+            
         </main>
     </div>
 

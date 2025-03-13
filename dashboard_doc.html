@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedAccess Dashboard</title>
-    <link rel="stylesheet" href="dashboard_doc.css">
+    <link rel="stylesheet" href="assets/dashboard_doc.css">
     <script src="https://kit.fontawesome.com/2775dde967.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -29,6 +29,7 @@
                 <li onclick="showSection('profile')"><i class="fas fa-user"></i>Doctor Profile</li>
                 <li onclick="showSection('patients')"><i class="fas fa-user-md"></i> My Patients</li>
                 <li onclick="showSection('history')"><i class="fas fa-notes-medical"></i> Health History</li>
+                <li onclick="showSection('reclamations')"><i class="fas fa-exclamation-circle"></i>Reclamations</li>
                 <li onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</li>
             </ul>
         </nav>
@@ -132,10 +133,19 @@
               <!-- Container to display patient data -->
               <div id="patient-data"></div>
             </section>
+
+            <section id="reclamations" style="display:none;">
+              <h2>Patient Reclamations</h2>
+              <div id="reclamations-container">
+                <!-- Reclamations will be dynamically added here -->
+              </div>
+            </section>
+            
+
             
         </main>
     </div>
 
-    <script src="dashboard_doc.js"></script>
+    <script src="assets/dashboard_doc.js"></script>
 </body>
 </html>

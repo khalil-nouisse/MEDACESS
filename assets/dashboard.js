@@ -29,6 +29,9 @@ function showSection(sectionId) {
   if (sectionId === "doctors") {
       displayDoctors();
   }
+  if (sectionId === "reclamation") {
+    populateDoctorsDropdown();
+}
 }
 
 // data of doctors(name,speciality)
@@ -177,7 +180,43 @@ function displayHealthHistory() {
   historySection.appendChild(operationsCard);
   historySection.appendChild(medicamentsCard);
 }
+// Function to populate doctors dropdown in reclamation form
+function populateDoctorsDropdown() {
+  const doctorSelect = document.getElementById("doctor");
+  doctorSelect.innerHTML = ""; // Clear the existing options
 
+  // Add default "Select a doctor" option
+  const defaultOption = document.createElement("option");
+  defaultOption.textContent = "Select a doctor";
+  doctorSelect.appendChild(defaultOption);
+
+  // Add each doctor to the dropdown
+  doctors.forEach((doctor) => {
+      const option = document.createElement("option");
+      option.value = doctor.name;
+      option.textContent = doctor.name;
+      doctorSelect.appendChild(option);
+  });
+}
+
+// Function to handle reclamation submission
+function submitReclamation() {
+  const doctor = document.getElementById("doctor").value;
+  const reclamationText = document.getElementById("reclamation").value;
+
+  // Validate input
+  if (!doctor || !reclamationText) {
+      alert("Please select a doctor and provide your reclamation.");
+      return;
+  }
+
+  // Simulate sending the reclamation (e.g., to a server or display a confirmation)
+  alert(`Your reclamation has been submitted to ${doctor}. Thank you!`);
+
+  // Clear the form
+  document.getElementById("doctor").value = "";
+  document.getElementById("reclamation").value = "";
+}
 // call the dashboard function to display dashboard when we display the page
 window.onload = () => {
   showSection("dashboard"); 
