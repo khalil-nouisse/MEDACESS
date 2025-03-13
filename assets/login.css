@@ -112,8 +112,6 @@ button{
 }
 button:hover{
     background-color:hsla(185, 63%, 18%, 0.438) ;
-    
-
 }
 @keyframes bounce {
     0%, 100% {
@@ -123,7 +121,6 @@ button:hover{
         transform: scale(0.95);
     }
 }
-
 button:active {
     animation: bounce 0.3s ease;
     background-color: hsla(185, 63%, 18%, 0.082);
@@ -132,8 +129,6 @@ button:active {
     position: absolute;
     width: 100%;
     height: 100%;
-    
-
 }
 .toggle-box::before{
     content: '';
@@ -141,7 +136,8 @@ button:active {
     left: -250%;
     width: 300%;
     height: 100%;
-    background-color:hsl(186, 100%, 19%); 
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
     border-radius: 150px;
     z-index: 2;
     transition: 1.8s ease-in-out;
@@ -179,8 +175,9 @@ button:active {
     right: -50%;
     transition-delay: 0.5s;
 }
-
-    
+.text{
+    color:white;
+}
 .toggle-pannel p{
     margin-bottom: 20px ;
     margin-top: 15px;

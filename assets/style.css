@@ -11,7 +11,7 @@
     position: fixed;
     top: 0;
     width: 100%;
-    background: hsl(186, 100%, 19%);
+    background: #0b1f52;
     padding: 40px 90px;
     display: flex;
     align-items: center;
@@ -22,8 +22,9 @@ ul li{
   list-style: none;
 }
 .navbar .nav-logo {
+  display: flex;
   text-decoration: none;
-  color: #99b4d1;
+  color: #83ffc0;
 }
 .navbar .nav-logo .nav-title{
   font-size: 30px;
@@ -31,7 +32,7 @@ ul li{
 }
 .navbar .nav-logo span{
   text-decoration: none;
-  color: #02172e;
+  color: #58ffe6;
 }
 header .navbar{
   display: flex;
@@ -58,7 +59,7 @@ header .navbar{
   position: absolute;
   left: 0;
   bottom: -1px;
-  background-color: #02172e;
+  background-color: #58ffe6;
   transition: 0.5s;
 }
 .navbar .nav-menu .nav-link:hover::after{
@@ -66,13 +67,15 @@ header .navbar{
 }
 .navbar .nav-menu .nav-link:hover {
   font-weight: bold;
-  color: #02172e; 
+  color: #58ffe6; 
 }
 /*hero section */
 
 .hero {
-  background-image:linear-gradient(hsla(186, 100%, 19%, 0.454),hsla(186, 100%, 19%, 0.527)),url(images/hero-bg.png);
-  color: white;
+  background: #000046; 
+  background: -webkit-linear-gradient(to right, #1CB5E0, #000046); 
+  background: linear-gradient(to right, #1CB5E0, #000046); 
+    color: white;
   padding: 100px 20px;
   display: flex;
   align-items: center;
@@ -96,7 +99,7 @@ header .navbar{
   font-size: 30px;
 }
 .hero-content h1{
-  color:#02172e;
+  color:#83ffc0;
   text-align: center;
 }
 .hero-content p{
@@ -142,7 +145,7 @@ header .navbar{
 
 /*-------------ABOUT--------------*/
 .about {
-  background-color:  hsl(186, 100%, 19%);
+  background-color:  #0b1f52;
   color: white;
   padding: 120px 20px;
 }
@@ -157,7 +160,7 @@ header .navbar{
   font-size: 40px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #02172e;
+  color: #83ffc0;
 }
 .about p {
   font-size: 20px;
@@ -181,7 +184,7 @@ header .navbar{
 
 .healthcare-insights h2 {
   font-size: 32px;
-  color: #02172e;
+  color: #0b1f52;
   margin-bottom: 10px;
   text-align: center;
 }
@@ -229,7 +232,7 @@ header .navbar{
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: hsl(186, 79%, 28%); 
+  background-color: #83ffc0; 
   transform: translateY(100%); 
   transition: transform 0.6s ease; 
   z-index: -1; 
@@ -240,7 +243,7 @@ header .navbar{
 }
 
 .insight-card:hover p {
-  color: white;
+  color: black;
 }
 
 .insight-card:hover {
@@ -250,7 +253,7 @@ header .navbar{
 
 .insight-card h3 {
   font-size: 24px;
-  color: #02172e;
+  color: #0b1f52;
   margin-bottom: 10px;
   min-height: 50px;
   transition: color 0.3s ease;
@@ -267,13 +270,13 @@ header .navbar{
 
 .read-more {
   text-decoration: none;
-  color: #4a90e2;
+  color: #03de74;
   font-weight: bold;
   transition: color 0.3s;
 }
 
 .read-more:hover {
-  color: #2c6fbb;
+  color: #0b1f52;
 }
 
 /* Responsive Adjustments */
@@ -312,7 +315,7 @@ header .navbar{
 /* footer */
 
 .footer {
-  background-color: #02172e;
+  background-color: rgba(11,31,82,0.8);
   color: white;
   padding: 80px 20px;
   text-align: center;
