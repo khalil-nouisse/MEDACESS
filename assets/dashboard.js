@@ -1,39 +1,37 @@
-// Groupe sanguin constant du patient
+// BLOOD type constent for patient
 const patientBloodType = "A+";
-
-// Fonction pour afficher une section et masquer les autres
+//function to display a section and hide others
 function showSection(sectionId) {
-  // Masquer toutes les sections
+  // hide all sections
   document.querySelectorAll("main section").forEach(section => {
       section.style.display = "none";
   });
-
-  // Afficher la section sélectionnée
+  
+  // display the selected section
   document.getElementById(sectionId).style.display = "block";
 
-  // Supprimer la classe "active" de tous les éléments de la barre latérale
+  // delete active from all li of the sidebar
   document.querySelectorAll(".sidebar ul li").forEach(item => {
       item.classList.remove("active");
   });
 
-  // Ajouter la classe "active" à l'élément cliqué
+  // Add the active for the selected section
   const clickedItem = document.querySelector(`.sidebar ul li[onclick*="${sectionId}"]`);
   if (clickedItem) {
       clickedItem.classList.add("active");
   }
 
-  // Si la section est "history", afficher les données de santé
+  //if the section is history display health history for patient
   if (sectionId === "history") {
       displayHealthHistory();
   }
-
-  // Si la section est "doctors", afficher la liste des médecins
+  //if section is doctors , display list of doctors
   if (sectionId === "doctors") {
       displayDoctors();
   }
 }
 
-// Données des médecins (nom et spécialité)
+// data of doctors(name,speciality)
 const doctors = [
   { name: "Dr. Smith", specialty: "Cardiologist" },
   { name: "Dr. Johnson", specialty: "Dermatologist" },
@@ -41,14 +39,14 @@ const doctors = [
   { name: "Dr. Lee", specialty: "Orthopedic Surgeon" },
 ];
 
-// Fonction pour afficher la liste des médecins
+// function to display doctors
 function displayDoctors() {
   const doctorsList = document.getElementById("doctors-list");
 
-  // Vider le contenu existant
+  //  Empty existent content
   doctorsList.innerHTML = "";
 
-  // Ajouter chaque médecin à la liste
+  //  add doctor to the list
   doctors.forEach((doctor) => {
       const doctorCard = document.createElement("div");
       doctorCard.classList.add("doctor-card");
@@ -66,7 +64,7 @@ function displayDoctors() {
   });
 }
 
-// Données simulées pour les vaccinations, allergies, opérations et médicaments
+// Simulated data for vaccinations, allergies, surgeries, and medications
 const healthHistoryData = {
   vaccinations: [
       { name: "COVID-19 Vaccine", date: "2023-01-15", doctor: "Dr. Smith" },
@@ -86,7 +84,7 @@ const healthHistoryData = {
   ]
 };
 
-// Fonction pour regrouper les éléments par médecin
+// function to regroup elements by doctor
 function groupByDoctor(items) {
   return items.reduce((grouped, item) => {
       const doctor = item.doctor;
@@ -98,7 +96,7 @@ function groupByDoctor(items) {
   }, {});
 }
 
-// Fonction pour créer une carte (box) avec les éléments groupés par médecin
+// function to create a card (box) with items grouped by doctor.
 function createCardWithDoctor(title, items) {
   const card = document.createElement("div");
   card.className = "history-card";
@@ -107,10 +105,10 @@ function createCardWithDoctor(title, items) {
   cardTitle.textContent = title;
   card.appendChild(cardTitle);
 
-  // Grouper les éléments par médecin
+  // group elements by doctor
   const groupedByDoctor = groupByDoctor(items);
 
-  // Parcourir chaque médecin et créer une section pour lui
+  // Loop through each doctor and create a section for them
   for (const doctor in groupedByDoctor) {
       const doctorSection = document.createElement("div");
       doctorSection.className = "doctor-section";
@@ -124,7 +122,7 @@ function createCardWithDoctor(title, items) {
           itemDiv.className = "history-item";
 
           for (const key in item) {
-              if (key !== "doctor") { // Ne pas afficher le champ "doctor" dans les détails
+              if (key !== "doctor") { 
                   const p = document.createElement("p");
                   p.textContent = `${key}: ${item[key]}`;
                   itemDiv.appendChild(p);
@@ -140,7 +138,7 @@ function createCardWithDoctor(title, items) {
   return card;
 }
 
-// Fonction pour créer une carte pour le groupe sanguin du patient
+// function to create the blood type section
 function createBloodTypeCard() {
   const card = document.createElement("div");
   card.className = "history-card";
@@ -156,35 +154,35 @@ function createBloodTypeCard() {
   return card;
 }
 
-// Fonction pour afficher les données de santé dans la section "Health History"
+// display data on the healthcare history section
 function displayHealthHistory() {
   const historySection = document.getElementById("history");
 
-  // Vider la section avant d'ajouter de nouveaux éléments
+  //hide section
   historySection.innerHTML = "";
 
-  // Ajouter la carte du groupe sanguin
+  // Add the card for blood type
   const bloodTypeCard = createBloodTypeCard();
   historySection.appendChild(bloodTypeCard);
 
-  // Créer et ajouter les cartes pour chaque catégorie
+  // Create and add the cards for each category.
   const vaccinationsCard = createCardWithDoctor("Vaccinations", healthHistoryData.vaccinations);
   const allergiesCard = createCardWithDoctor("Allergies", healthHistoryData.allergies);
   const operationsCard = createCardWithDoctor("Operations", healthHistoryData.operations);
   const medicamentsCard = createCardWithDoctor("Medicaments", healthHistoryData.medicaments);
 
-  // Ajouter les cartes à la section
+  // add cards to the section
   historySection.appendChild(vaccinationsCard);
   historySection.appendChild(allergiesCard);
   historySection.appendChild(operationsCard);
   historySection.appendChild(medicamentsCard);
 }
 
-// Appeler la fonction pour afficher le tableau de bord par défaut au chargement de la page
+// call the dashboard function to display dashboard when we display the page
 window.onload = () => {
-  showSection("dashboard"); // Afficher le tableau de bord par défaut
+  showSection("dashboard"); 
 };
 
 function logout() {
-  window.location.href = "login.html";  // Redirects to login.html
+  window.location.href = "login.html";  // logout to login.html
 }
