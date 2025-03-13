@@ -1,5 +1,10 @@
 const User = require("../models/User");
 const Treatment = require('../models/Treatment');
+const Reclamation = require('../models/Reclamation');
+const nodemailer = require("nodemailer");
+const { transporter } = require("../controllers/mailerController");
+require("dotenv").config(); 
+
 exports.updateData = async (req, res) => {
     try {
       if (!req.session.user || req.session.role !== 0) {
@@ -58,4 +63,26 @@ exports.displayMyDoctors= async (req, res) => {
    catch(err){
     return res.status(500).json({ message: err.message, success: false });
    }
-}
+};
+
+exports.sendEmailReclamation = (userEmail, doctorEmail, reclamation , PatientFullName) => {
+ 
+  const mailOptions = {
+      from: userEmail,
+      to: doctorEmail,
+      subject: "Relcamation Report",
+      html: `
+          <h2>Patient Reclamation !</h2>
+          <h3><strong>User ID:</strong> ${PatientFullName}</h3>
+          <p><strong>Reclamation :</strong>${reclamation}</p>
+      `,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          console.error("Error sending email:", error);
+      } else {
+          console.log(`Reclamation email sent to ${doctorEmail}:`, info.response);
+      }
+  });
+};

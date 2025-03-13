@@ -4,6 +4,7 @@ const { connectDB } = require('./config/db');
 const authRoutes  = require('./api/routes/authRoutes');
 const userRoutes  = require('./api/routes/userRoutes');
 const MongoStore = require('connect-mongo');
+const path = require("path");
 require('dotenv').config();
 
 const app = express();
@@ -39,7 +40,9 @@ app.use('/user', userRoutes);
 // EJS Setup
 app.set('view engine', 'ejs');
 
-// Home Route
+app.use('/src', express.static(path.join(__dirname, './public')));
+
+// Home Route 
 app.get('/', (req, res) => {
     res.render('index', { user: req.session.user || null });
 });
