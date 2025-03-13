@@ -1,0 +1,668 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Header (Navbar) */
+header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2c3e50;
+  color: white;
+  padding: 15px 20px;
+  z-index: 100;
+  transition: background 0.3s ease;
+}
+
+header.scrolled {
+  background: #16a085;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.searchbar {
+  display: flex;
+  gap: 10px;
+}
+
+.searchbar input {
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.search-btn {
+  padding: 8px 12px;
+  border: none;
+  background: #16a085;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.profile-icon img {
+  width: 40px;
+  border-radius: 50%;
+}
+
+/* Layout */
+.container {
+  display: flex;
+}
+
+/* Sidebar Navigation */
+.sidebar {
+  width: 250px;
+  background: #34495e;
+  position: fixed;
+  padding: 20px 0;
+  height: 100vh;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 18px 25px;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.3s ease, padding-left 0.2s;
+}
+
+.sidebar ul li:hover,
+.sidebar ul .active {
+  background: #16a085;
+  padding-left: 30px;
+}
+
+/* Main Content */
+main {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px; /* Adjusted to match sidebar width */
+}
+
+/* Sections */
+section {
+  display: none;
+}
+
+section.active {
+  display: block;
+}
+
+/* Dashboard Cards */
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.card {
+  margin-top: 30px;
+  margin-right: 20px;
+  height: 210px;
+  background: #ecf0f1;
+  padding: 50px;
+  width: 420px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card h2 {
+  font-size: 23px;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.card p {
+  font-size: 16px;
+  color: #7f8c8d;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Layout */
+@media (max-width: 1200px) {
+  .card-container {
+    justify-content: space-evenly;
+  }
+}
+
+@media (max-width: 1024px) {
+  .card-container {
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .card {
+    width: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    justify-content: space-around;
+  }
+
+  .card {
+    width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .card {
+    width: 90%;
+  }
+}
+
+/* Profile Section */
+.profile-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.profile-item label {
+  font-size: 18px;
+  color: #34495e;
+  margin-bottom: 8px;
+}
+
+.profile-item input,
+.profile-item select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.profile-item input[readonly] {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #16a085;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #1abc9c;
+}
+
+/* Doctors Section */
+#doctors {
+  padding: 20px;
+  background-color: #ecf0f1;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+#doctors h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+#doctors p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #34495e;
+}
+
+.doctors-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.doctor-card {
+  background: linear-gradient(135deg, #a8e6cf, #dcedc1);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.doctor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.doctor-card h3 {
+  font-size: 18px;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.doctor-card p {
+  font-size: 14px;
+  color: #34495e;
+  margin: 0;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.doctor-card {
+  animation: fadeIn 0.5s ease forwards;
+  opacity: 0;
+}
+
+.doctor-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.doctor-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.doctor-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.doctor-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+
+/* Health History Cards */
+.history-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.history-card h3 {
+  font-size: 20px;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.history-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-item p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #34495e;
+}
+
+/* Police de caractères */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* Reset général */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Couleurs principales */
+:root {
+  --primary-color: #16a085; /* Vert principal */
+  --secondary-color: #2c3e50; /* Bleu foncé */
+  --background-color: #f4f7f6; /* Fond clair */
+  --text-color: #34495e; /* Texte foncé */
+  --white-color: #ffffff; /* Blanc */
+  --hover-color: #1abc9c; /* Vert clair pour les effets de survol */
+}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--secondary-color);
+  color: var(--white-color);
+  padding: 15px 20px;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header.scrolled {
+  background: var(--primary-color);
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--white-color);
+}
+
+.searchbar {
+  display: flex;
+  gap: 10px;
+}
+
+.searchbar input {
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+  font-size: 14px;
+}
+
+.search-btn {
+  padding: 8px 12px;
+  border: none;
+  background: var(--primary-color);
+  color: var(--white-color);
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.search-btn:hover {
+  background: var(--hover-color);
+}
+
+.profile-icon img {
+  width: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--white-color);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background: var(--secondary-color);
+  position: fixed;
+  padding: 20px 0;
+  height: 100vh;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 18px 25px;
+  font-size: 18px;
+  color: var(--white-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.3s ease, padding-left 0.2s;
+}
+
+.sidebar ul li:hover, .sidebar ul li.active {
+  background: var(--primary-color);
+  padding-left: 30px;
+}
+
+.sidebar ul li i {
+  font-size: 20px;
+}
+
+/* Main Content */
+main {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px;
+  background: var(--background-color);
+  min-height: 100vh;
+}
+
+/* Sections */
+section {
+  display: none;
+  padding: 20px;
+  background: var(--white-color);
+  border-radius: 10px;
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+section.active {
+  display: block;
+}
+
+/* Cartes */
+.history-card, .doctor-card {
+  background: var(--white-color);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.history-card:hover, .doctor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.history-card h3, .doctor-card h3 {
+  color: var(--secondary-color);
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.history-card p, .doctor-card p {
+  color: var(--text-color);
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+/* Boutons */
+button {
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: var(--hover-color);
+}
+
+/* Éléments d'historique */
+.history-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  transition: background 0.3s ease;
+}
+
+.history-item:hover {
+  background: #f1f1f1;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  main {
+    margin-left: 0;
+  }
+
+  .searchbar input {
+    width: 150px;
+  }
+}
+/*=================================================================================*/
+/* Doctors CSS */
+
+/* Style pour la section des médecins */
+#doctors {
+  padding: 20px;
+  background-color: var(--background-color2);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+#doctors h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #2c3e50; /* Couleur foncée pour le titre */
+}
+
+#doctors p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #34495e; /* Couleur foncée pour la description */
+}
+
+/* Style pour la liste des médecins */
+.doctors-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Style pour les cartes des médecins */
+.doctor-card {
+  background: linear-gradient(135deg, #a8e6cf, #dcedc1); /* Dégradé vert clair */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation de transition */
+}
+
+.doctor-card:hover {
+  transform: translateY(-5px); /* Effet de levée au survol */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée au survol */
+}
+
+.doctor-card h3 {
+  font-size: 18px;
+  color: #2c3e50; /* Couleur foncée pour le nom */
+  margin: 0;
+}
+
+.doctor-card p {
+  font-size: 14px;
+  color: #34495e; /* Couleur foncée pour la spécialité */
+  margin: 0;
+}
+
+/* Animation pour l'apparition des cartes */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.doctor-card {
+  animation: fadeIn 0.5s ease forwards; /* Appliquer l'animation */
+  opacity: 0; /* Commencer invisible */
+}
+
+/* Délai d'animation pour chaque carte */
+.doctor-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.doctor-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.doctor-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.doctor-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
