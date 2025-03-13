@@ -7,5 +7,5 @@ const router = express.Router();
 router.post('/update', updateData);
 router.get('/addTreatments',addNewTreatment);
 router.post('/reportReclamation', sendEmailReclamation);
-router.get('/khalil', treatmentsDisplay);
+router.get('/dash', treatmentsDisplay);
 module.exports = router;

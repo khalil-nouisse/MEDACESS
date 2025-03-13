@@ -22,7 +22,7 @@ if (!process.env.MONGODB_URI) {
 // Connect to MongoDB
 connectDB();
 
-// Middlewares
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -70,7 +70,7 @@ app.get('/dash', (req, res) => {
         return res.redirect('/login');
     }    
     res.render('dashboard', { user: req.session.user });
-});
+})
 
 app.get('/update', (req, res) => {
     if (!req.session.user) {

@@ -97,8 +97,8 @@ exports.treatmentsDisplay = async (req, res) => {
       const Treatments = await Treatment.find({ cin: req.session.user.cin});
 
       if (Treatments.length > 0) {
-          //return res.status(200).json({ data: Treatments, success: true });
-          return res.render('khalil', { user: req.session.user || null, data: Treatments });
+          return res.status(200).json({ data: Treatments, success: true });
+          //return res.render('khalil', { user: req.session.user || null, data: Treatments });
       } else {
           return res.status(400).json({ message: 'There is no treatment added by you', success: false });
       }

@@ -1,3 +1,69 @@
+const BASE_URL = 'http://localhost:3000';
+
+async function Salam(){
+  const response = await fetch(`${BASE_URL}/user/dash`, {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+    },
+  });
+  
+  const data = await response.json();
+  console.log('Data => ',data);
+}
+
+async function fetchAndProcessHealthHistory() {
+  try {
+    const response = await fetch(`${BASE_URL}/user/dash`);
+    const responseData = await response.json();
+
+    if (responseData.success) {
+      const transformedData = transformData(responseData.data);
+      displayHealthHistory(transformedData);
+    } else {
+      console.error("Error fetching data");
+    }
+  } catch (error) {
+    console.error("Error fetching health history:", error);
+  }
+}
+
+// Function to transform data into categories
+function transformData(data) {
+  let formattedData = {
+    vaccinations: [],
+    allergies: [],
+    operations: [],
+    medicaments: []
+  };
+
+  data.forEach((item) => {
+    let entry = {
+      name: item.descript,
+      date: new Date(item.date).toISOString().split("T")[0], // Format date
+      doctor: item.addedBy
+    };
+
+    if (item.type === 0) {
+      formattedData.vaccinations.push(entry);
+    } else if (item.type === 1) {
+      entry.severity = "Moderate"; // Example severity level
+      formattedData.allergies.push(entry);
+    } else if (item.type === 2 || item.type === 3) {
+      formattedData.operations.push(entry);
+    } else {
+      formattedData.medicaments.push({
+        name: item.notes,
+        dosage: "500mg",
+        frequency: "Twice a day",
+        doctor: item.addedBy
+      });
+    }
+  });
+
+  return formattedData;
+}
+
 // Groupe sanguin constant du patient
 const patientBloodType = "A+";
 
@@ -24,7 +90,7 @@ function showSection(sectionId) {
 
   // Si la section est "history", afficher les données de santé
   if (sectionId === "history") {
-      displayHealthHistory();
+    fetchAndProcessHealthHistory();
   }
 
   // Si la section est "doctors", afficher la liste des médecins
@@ -67,6 +133,7 @@ function displayDoctors() {
 }
 
 // Données simulées pour les vaccinations, allergies, opérations et médicaments
+/*
 const healthHistoryData = {
   vaccinations: [
       { name: "COVID-19 Vaccine", date: "2023-01-15", doctor: "Dr. Smith" },
@@ -84,7 +151,7 @@ const healthHistoryData = {
       { name: "Paracetamol", dosage: "500mg", frequency: "Twice a day", doctor: "Dr. Johnson" },
       { name: "Ibuprofen", dosage: "400mg", frequency: "Once a day", doctor: "Dr. Brown" }
   ]
-};
+};*/
 
 // Fonction pour regrouper les éléments par médecin
 function groupByDoctor(items) {
@@ -157,28 +224,28 @@ function createBloodTypeCard() {
 }
 
 // Fonction pour afficher les données de santé dans la section "Health History"
-function displayHealthHistory() {
+function displayHealthHistory(healthHistoryData) {
   const historySection = document.getElementById("history");
-
-  // Vider la section avant d'ajouter de nouveaux éléments
   historySection.innerHTML = "";
+  healthHistoryData = fetch
 
-  // Ajouter la carte du groupe sanguin
   const bloodTypeCard = createBloodTypeCard();
   historySection.appendChild(bloodTypeCard);
 
-  // Créer et ajouter les cartes pour chaque catégorie
-  const vaccinationsCard = createCardWithDoctor("Vaccinations", healthHistoryData.vaccinations);
-  const allergiesCard = createCardWithDoctor("Allergies", healthHistoryData.allergies);
-  const operationsCard = createCardWithDoctor("Operations", healthHistoryData.operations);
-  const medicamentsCard = createCardWithDoctor("Medicaments", healthHistoryData.medicaments);
+  // Create and append category cards
+  if (healthHistoryData.vaccinations.length)
+    historySection.appendChild(createCardWithDoctor("Vaccinations", healthHistoryData.vaccinations));
 
-  // Ajouter les cartes à la section
-  historySection.appendChild(vaccinationsCard);
-  historySection.appendChild(allergiesCard);
-  historySection.appendChild(operationsCard);
-  historySection.appendChild(medicamentsCard);
+  if (healthHistoryData.allergies.length)
+    historySection.appendChild(createCardWithDoctor("Allergies", healthHistoryData.allergies));
+
+  if (healthHistoryData.operations.length)
+    historySection.appendChild(createCardWithDoctor("Operations", healthHistoryData.operations));
+
+  if (healthHistoryData.medicaments.length)
+    historySection.appendChild(createCardWithDoctor("Medicaments", healthHistoryData.medicaments));
 }
+
 
 // Appeler la fonction pour afficher le tableau de bord par défaut au chargement de la page
 window.onload = () => {
