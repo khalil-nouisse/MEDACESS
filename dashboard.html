@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedAccess Dashboard</title>
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="assets/dashboard.css">
     <script src="https://kit.fontawesome.com/2775dde967.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -36,27 +36,89 @@
         <!-- MAIN CONTENT -->
         <main id="content">
             <!-- Dashboard Section (Default) -->
-            <section id="dashboard">
+            <section id="dashboard" class="active">
                 <div class="card-container">
-                    <div class="card">Welcome to MedAccess</div>
-                    <div class="card">Today's Health Tip</div>
-                    <div class="card">Mental Well-being Check</div>
-                    <div class="card">Health Myths & Facts</div>
+                    <div class="card">
+                        <h2>Welcome to MedAccess</h2>
+                        <p>Stay on top of your health! Small steps make a big difference</p>
+                    </div>
+                    <div class="card">
+                        <h2>Today's Tip:</h2>
+                        <p>Take a 30-minute walk to improve heart health!</p>
+                    </div>
+                    <div class="card">
+                        <h2>Mental Well-being Check</h2>
+                        <p>A friendly reminder to take care of your mental health.</p>
+                    </div>
+                    <div class="card">
+                        <h2>Common Health Myths & Facts</h2>
+                        <p>Myth: "Eating late at night makes you gain weight."<br>
+                           Fact: Weight gain depends on total daily calorie intake, not meal timing!
+                        </p>
+                    </div>
                 </div>
             </section>
 
             <!-- Profile Section -->
             <section id="profile" style="display: none;">
-                <h2>My Profile</h2>
-                <p>Name: John Doe</p>
-                <p>Email: johndoe@example.com</p>
-                <p>Age: 30</p>
+                <div class="profile-item">
+                    <label for="firstname">First Name:</label>
+                    <input type="text" id="firstname" value="John" readonly>
+                </div>
+                <div class="profile-item">
+                    <label for="lastname">Last Name:</label>
+                    <input type="text" id="lastname" value="Doe" readonly>
+                </div>
+                <div class="profile-item">
+                    <label for="cin">CIN:</label>
+                    <input type="text" id="cin" value="AB123456" readonly>
+                </div>
+                <div class="profile-item">
+                    <label for="phonenumber">Phone Number:</label>
+                    <input type="text" id="phonenumber" value="+212 600 000 000" readonly>
+                </div>
+                <div class="profile-item">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" value="john.doe@example.com" readonly>
+                </div>
+                <div class="profile-item">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" value="123 Main St, Casablanca" readonly>
+                </div>
+                <div class="profile-item">
+                    <label for="gender">Gender:</label>
+                    <select id="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="profile-item">
+                    <label for="status">Marital Status:</label>
+                    <select id="status">
+                        <option value="single">Single</option>
+                        <option value="married">Married</option>
+                        <option value="divorced">Divorced</option>
+                    </select>
+                </div>
+                <div class="profile-item">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" value="30">
+                </div>
+                <div class="profile-item">
+                    <label for="postalcode">Postal Code:</label>
+                    <input type="text" id="postalcode" value="20000">
+                </div>
+                <button onclick="saveProfile()">Save Changes</button>
             </section>
 
             <!-- My Doctors Section -->
             <section id="doctors" style="display: none;">
                 <h2>My Doctors</h2>
-                <p>List of assigned doctors and their specialties.</p>
+                <p>List of my doctors and their specialties:</p>
+                <div id="doctors-list" class="doctors-container">
+                    <!-- Doctors list will be dynamically generated here -->
+                </div>
             </section>
 
             <!-- Health History Section -->
@@ -67,7 +129,6 @@
         </main>
     </div>
 
-    <script src="script.js"></script>
-
+    <script src="assets/dashboard.js"></script>
 </body>
 </html>

@@ -1,0 +1,361 @@
+*{
+  font-family: 'Poppins',sans-serif;
+  margin: 0;
+  box-sizing: border-box;
+ }
+ html {
+  scroll-behavior: smooth;
+}
+.navbar{
+  border-bottom: 1px solid #02172e;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: hsl(186, 100%, 19%);
+    padding: 40px 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+}
+ul li{
+  list-style: none;
+}
+.navbar .nav-logo {
+  text-decoration: none;
+  color: #99b4d1;
+}
+.navbar .nav-logo .nav-title{
+  font-size: 30px;
+  font-weight: bold;
+}
+.navbar .nav-logo span{
+  text-decoration: none;
+  color: #02172e;
+}
+header .navbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar .nav-menu{
+  display: flex;
+  gap:80px;
+}
+.navbar .nav-menu .nav-link{
+  text-decoration: none;
+  color:white;
+  font-size: 23px;
+  border-radius: 20px;
+  padding: 12px 12px;
+  transition: 0.3s ease;
+  position: relative;
+}
+.navbar .nav-menu .nav-link::after{
+  content:'';
+  width: 0;
+  height: 3px;
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  background-color: #02172e;
+  transition: 0.5s;
+}
+.navbar .nav-menu .nav-link:hover::after{
+  width: 100%;
+}
+.navbar .nav-menu .nav-link:hover {
+  font-weight: bold;
+  color: #02172e; 
+}
+/*hero section */
+
+.hero {
+  background-image:linear-gradient(hsla(186, 100%, 19%, 0.454),hsla(186, 100%, 19%, 0.527)),url(images/hero-bg.png);
+  color: white;
+  padding: 100px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; 
+}
+
+.hero-container {
+  padding-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  width: 100%;
+  
+}
+
+.hero-content {
+  flex: 1;
+  text-align: left;
+  font-size: 30px;
+}
+.hero-content h1{
+  color:#02172e;
+  text-align: center;
+}
+.hero-content p{
+  text-align: center;
+  color:white;
+  margin-top: 20px;
+  font-size: 23px;
+  font-weight:  bold;
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 500px; 
+  border-radius: 12px;
+}
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  70% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.hero-image img {
+  animation: bounce 3s ease-in-out infinite;
+}
+
+/*-------------ABOUT--------------*/
+.about {
+  background-color:  hsl(186, 100%, 19%);
+  color: white;
+  padding: 120px 20px;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about h2 {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #02172e;
+}
+.about p {
+  font-size: 20px;
+  color: white;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+/* Healthcare Insights Section */
+
+.healthcare-insights {
+  background-color: #f4f7fa;
+  padding: 120px 20px;
+  text-align: center;
+}
+
+.insights-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.healthcare-insights h2 {
+  font-size: 32px;
+  color: #02172e;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.healthcare-insights p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 70px;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.insight-cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.insight-card {
+  cursor: pointer;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 13px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  text-align: left;
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  min-height: 350px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.insight-card::before {
+  content: ''; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: hsl(186, 79%, 28%); 
+  transform: translateY(100%); 
+  transition: transform 0.6s ease; 
+  z-index: -1; 
+}
+
+.insight-card:hover::before {
+  transform: translateY(0); 
+}
+
+.insight-card:hover p {
+  color: white;
+}
+
+.insight-card:hover {
+  transform: scale(1.05);  
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);  
+}
+
+.insight-card h3 {
+  font-size: 24px;
+  color: #02172e;
+  margin-bottom: 10px;
+  min-height: 50px;
+  transition: color 0.3s ease;
+}
+
+.insight-card p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  transition: color 0.3s ease;
+  text-align: left;
+}
+
+.read-more {
+  text-decoration: none;
+  color: #4a90e2;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.read-more:hover {
+  color: #2c6fbb;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .healthcare-insights {
+    padding: 80px 15px;
+  }
+  
+  .healthcare-insights h2 {
+    font-size: 28px;
+  }
+  
+  .healthcare-insights p {
+    font-size: 16px;
+    margin-bottom: 50px;
+  }
+  
+  .insight-card {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .healthcare-insights {
+    padding: 60px 10px;
+  }
+  
+  .insight-card {
+    padding: 20px;
+  }
+  
+  .insight-card h3 {
+    font-size: 20px;
+  }
+}
+/* footer */
+
+.footer {
+  background-color: #02172e;
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.contact-info h3{
+  margin-bottom: 8px;
+}
+.contact-info p{
+  margin-bottom: 8px;
+}
+.social-links a i{
+  margin-top: 20px;
+  font-size: 30px;
+}
+.social-links a,
+.contact-info a {
+  text-decoration: none;
+  color: #99b4d1;
+  margin: 10px;
+  font-size: 18px;
+}
+.contact-info p i{
+  font-size: 20px;
+  color:#99b4d1;
+}
+.social-links a:hover,
+.contact-info a:hover {
+  color: #4a90e2;
+}
+hr {
+  border: 0.5px solid #99b4d1d1;
+  margin-top: 70px;
+}
+.copyright {
+  font-size: 20px;
+  color: #99b4d1;
+  margin-top: 30px;
+}
+
