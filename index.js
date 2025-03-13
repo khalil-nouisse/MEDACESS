@@ -42,7 +42,7 @@ app.use('/user', userRoutes);
 // EJS Setup
 app.set('view engine', 'ejs');
 
-app.use('/src', express.static(path.join(__dirname, './public')));
+app.use('/', express.static(path.join(__dirname, './public')));
 
 // Home Route 
 app.get('/', (req, res) => {
@@ -67,7 +67,7 @@ app.get('/dash', (req, res) => {
     if (!req.session.user) {
         return res.redirect('/login');
     }    
-    res.render('dash', { user: req.session.user });
+    res.render('dashboard', { user: req.session.user });
 });
 
 app.get('/update', (req, res) => {

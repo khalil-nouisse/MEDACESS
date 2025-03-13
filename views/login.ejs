@@ -1,9 +1,107 @@
-<html>
-    <body>
-        <form action="/auth/login" method="POST">
-            <input type="text" name="emailorcin" placeholder="Email or CIN" required />
-            <input type="password" name="password" placeholder="Password" required />
-            <button type="submit">Login</button>
-        </form>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="assets/login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-box login">
+            <form action="/auth/login" method="POST">
+                <h2>Login</h2>
+                <!-- Required fields -->
+                <div class="form-group">
+                    <label for="cin">CIN/Email:</label>
+                    <input type="text" name="emailorcin"  placeholder="Enter your CIN or your Email" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="form-group">
+                    <label for="">Password:</label>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <div class="forgot-link">
+                    <a href="password.html">Forgot password?</a>
+                </div>
+                <!-- Submit button -->
+                <div class="form-group">
+                    <button type="submit" id="btn">Login</button>
+                </div>
+            </form>
+        </div>
+        <div class="form-box register">
+            <form action="/auth/register" method="POST">
+                <h2>Register</h2>
+                <!-- Required fields -->
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+                </div>
+                <div class="form-group">
+                    <label for="cin">CIN:</label>
+                    <input type="text" id="cin" name="cin" placeholder="Enter your CIN" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="tel" placeholder="Enter your phone number" required>
+                </div>
+    
+                <!-- Optional fields -->
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" name="address" placeholder="Enter your address">
+                </div>
+               <div class="form-group checkbox">
+                <input type="checkbox" id="isDoctor">
+                <label for="isDoctor">Are you a doctor?</label>
+            </div>
+            <div class="form-group" id="dotiGroup">
+                <label for="doti" id="labeldoti">DOTI:</label>
+                <input type="text" id="doti" placeholder="Enter your DOTI">
+            </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+               
+                
+    
+                <!-- Submit button -->
+                <div class="form-group">
+                    <button type="submit" id="btn">Register</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="toggle-box">
+            <div class="toggle-pannel toggle-left">
+                <h1>Hello, Welcome!</h1>
+                <p>Don't have an account?</p>
+                <button class="btn register-btn">Register</button>
+            </div>
+            <div class="toggle-pannel toggle-right">
+                <h1>Welcome Back!</h1>
+                <p>Already have an account?</p>
+                <button class="btn login-btn">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/login.js"></script>
+</body>
 </html>
