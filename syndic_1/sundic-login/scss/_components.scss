@@ -1,0 +1,88 @@
+.auth-forms {
+    .auth-form {
+      display: none;
+  
+      &.active {
+        display: block;
+      }
+  
+      .form-group {
+        margin-bottom: 1rem;
+  
+        label {
+          display: block;
+          font-size: 0.9rem;
+          color: $text;
+          margin-bottom: 0.4rem;
+        }
+  
+        input {
+          width: 100%;
+          padding: 0.6rem;
+          border: 1px solid $gray;
+          border-radius: 6px;
+          font-size: 1rem;
+  
+          &:focus {
+            border-color: $primary-light;
+            outline: none;
+          }
+        }
+      }
+  
+      .form-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85rem;
+  
+        .remember-me {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+  
+        .forgot-password {
+          color: $primary-light;
+          text-decoration: none;
+  
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+  
+      .auth-button {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: $primary-light;
+        border: none;
+        color: $white;
+        font-weight: bold;
+        font-size: 1rem;
+        border-radius: 6px;
+        margin-top: 1rem;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: darken($secondary, 10%);
+        }
+      }
+  
+      .auth-footer {
+        margin-top: 1rem;
+        text-align: center;
+        font-size: 0.9rem;
+  
+        a {
+          color: $primary;
+          text-decoration: none;
+  
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  

@@ -1,0 +1,78 @@
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  
+    .house-icon {
+      margin: 0 auto 1rem auto;
+      width: 50px;
+      height: 50px;
+      position: relative;
+  
+      .roof {
+        width: 0;
+        height: 0;
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+        border-bottom: 25px solid $primary;
+      }
+  
+      .house-body {
+        background: $primary-light;
+        height: 25px;
+        width: 50px;
+        position: absolute;
+        top: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 4px;
+  
+        .window, .door {
+          background: $white;
+          height: 12px;
+        }
+  
+        .window {
+          width: 10px;
+          border-radius: 2px;
+        }
+  
+        .door {
+          width: 14px;
+          border-radius: 2px;
+        }
+      }
+    }
+  
+    h1 {
+      font-size: 1.8rem;
+      color: $primary;
+      margin-bottom: 0.25rem;
+    }
+  
+    p {
+      font-size: 1rem;
+      color: $dark;
+    }
+  
+    .auth-tabs {
+      margin-top: 1rem;
+  
+      .tab-btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        background-color: $gray;
+        color: $text;
+        font-weight: 600;
+        border-radius: 6px;
+        margin: 0 0.25rem;
+        cursor: pointer;
+  
+        &.active {
+          background-color: $primary;
+          color: $white;
+        }
+      }
+    }
+  }
+  

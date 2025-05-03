@@ -1,0 +1,165 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-image: url("image.png");
+  background-size: cover;
+  background-position: center right;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 6%;
+}
+
+.auth-container {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.auth-header .house-icon {
+  margin: 0 auto 1rem auto;
+  width: 50px;
+  height: 50px;
+  position: relative;
+}
+.auth-header .house-icon .roof {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 25px solid #2A5C8B;
+}
+.auth-header .house-icon .house-body {
+  background: #4A90E2;
+  height: 25px;
+  width: 50px;
+  position: absolute;
+  top: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+}
+.auth-header .house-icon .house-body .window, .auth-header .house-icon .house-body .door {
+  background: #FFFFFF;
+  height: 12px;
+}
+.auth-header .house-icon .house-body .window {
+  width: 10px;
+  border-radius: 2px;
+}
+.auth-header .house-icon .house-body .door {
+  width: 14px;
+  border-radius: 2px;
+}
+.auth-header h1 {
+  font-size: 1.8rem;
+  color: #2A5C8B;
+  margin-bottom: 0.25rem;
+}
+.auth-header p {
+  font-size: 1rem;
+  color: #2C3E50;
+}
+.auth-header .auth-tabs {
+  margin-top: 1rem;
+}
+.auth-header .auth-tabs .tab-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #ECF0F1;
+  color: #333333;
+  font-weight: 600;
+  border-radius: 6px;
+  margin: 0 0.25rem;
+  cursor: pointer;
+}
+.auth-header .auth-tabs .tab-btn.active {
+  background-color: #2A5C8B;
+  color: #FFFFFF;
+}
+
+.auth-forms .auth-form {
+  display: none;
+}
+.auth-forms .auth-form.active {
+  display: block;
+}
+.auth-forms .auth-form .form-group {
+  margin-bottom: 1rem;
+}
+.auth-forms .auth-form .form-group label {
+  display: block;
+  font-size: 0.9rem;
+  color: #333333;
+  margin-bottom: 0.4rem;
+}
+.auth-forms .auth-form .form-group input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ECF0F1;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.auth-forms .auth-form .form-group input:focus {
+  border-color: #4A90E2;
+  outline: none;
+}
+.auth-forms .auth-form .form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+.auth-forms .auth-form .form-options .remember-me {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.auth-forms .auth-form .form-options .forgot-password {
+  color: #4A90E2;
+  text-decoration: none;
+}
+.auth-forms .auth-form .form-options .forgot-password:hover {
+  text-decoration: underline;
+}
+.auth-forms .auth-form .auth-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #4A90E2;
+  border: none;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+.auth-forms .auth-form .auth-button:hover {
+  background-color: #de9b1b;
+}
+.auth-forms .auth-form .auth-footer {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+.auth-forms .auth-form .auth-footer a {
+  color: #2A5C8B;
+  text-decoration: none;
+}
+.auth-forms .auth-form .auth-footer a:hover {
+  text-decoration: underline;
+}/*# sourceMappingURL=styles.css.map */

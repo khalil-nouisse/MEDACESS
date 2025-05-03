@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syndic App - Login/Signup</title>
+    <link rel="stylesheet" href="scss/styles.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <div class="house-icon">
+                <div class="roof"></div>
+                <div class="house-body">
+                    <div class="window left"></div>
+                    <div class="door"></div>
+                    <div class="window right"></div>
+                </div>
+            </div>
+            <h1>SyndicEase</h1>
+            <p>Manage your property with ease</p>
+        <div class="auth-tabs">
+            <button class="tab-btn active" data-tab="login">Login</button>
+            <button class="tab-btn" data-tab="signup">Sign Up</button>
+        </div>
+    </div>
+    
+    <div class="auth-forms">
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form active">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox"> Remember me
+                </label>
+                <a href="password.html" class="forgot-password">Forgot password?</a>
+            </div>
+            
+            <button type="submit" class="auth-button">Login</button>
+        </form>
+        
+        <!-- Signup Form -->
+        <form id="signup-form" class="auth-form">
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" placeholder="Enter your phone number" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" placeholder="Create a password" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+            </div>
+            
+            <button type="submit" class="auth-button">Sign Up</button>
+            
+            <div class="auth-footer">
+                Already have an account? <a href="#" class="switch-form" data-target="login">Login</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const forms = document.querySelectorAll('.auth-form');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetTab = this.getAttribute('data-tab');
+                
+                // Update active tab
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show corresponding form
+                forms.forEach(form => form.classList.remove('active'));
+                document.getElementById(`${targetTab}-form`).classList.add('active');
+            });
+        });
+        
+        // Switch form links
+        document.querySelectorAll('.switch-form').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('data-target');
+                
+                tabButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-tab') === target);
+                });
+                
+                forms.forEach(form => {
+                    form.classList.toggle('active', form.id === `${target}-form`);
+                });
+            });
+        });
+    });
+</script>
+```
+
+</body>
+</html> 
